@@ -1,0 +1,10 @@
+**/secrets/files/*.plain.*
+*.bak
+
+/.direnv/
+/.local/
+/result
+
+/.pre-commit-config.yaml
+/just-flake.just
+/*.txt
