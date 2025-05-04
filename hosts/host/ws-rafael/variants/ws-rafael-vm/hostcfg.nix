@@ -1,0 +1,3 @@
+{
+  runtimePlatform = "virtual-machine";
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+  "diagnostics": {
+    "globals": [
+      "_M",
+      "Snacks",
+      "nvim",
+      "vim"
+    ]
+  },
+  "runtime": {
+    "version": "Lua 5.4",
+    "pathStrict": true
+  },
+  "workspace": {
+    "maxPreload": 1600,
+    "preloadFileSize": 1000,
+    "ignoreDir": [
+      "/.direnv",
+      "/.history",
+      "/.vscode"
+    ],
+    "checkThirdParty": false
+  }
+}
