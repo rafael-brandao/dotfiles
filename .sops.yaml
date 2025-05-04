@@ -1,0 +1,65 @@
+---
+keys:
+  - &users
+    - &rafael age1ggc5hnfvfwdshyqd20f8kwml4w6naauzjjndkfu20jtcau9nlpwqeyzsvk
+  - &hosts
+    - &ddtrjar275709 age132snuslcs3l2kq4vmgskqrcwe3n60c8tuqg7k4jn86gervm85sdsmdt6kl
+    - &dnbrjar291010 age1vaxpgw4uj6edmpw4ln708ym35rgt72kalrla2lh9c25qex96pcesgg93er
+    - &nb-marcelo age1neghrhd8tugfd7xy3ut6x84ddv8kkxhressz4mt620nrd7sem5qqtru3yr
+    - &nb-nanda age1jv5mgkuheqe0unc75g8xpgyxxwgl8xlsx5amfuckv2hv84v92u6quutwer
+    - &rjod275569 age1gvdd2mt3c3wzwqmpdvrl9zreyv6sqax9r2jzqnev2pvq6z6g3cmstah0uv
+    - &ws-rafael age1qze03rajq552ettmlv2f6ea90fm00hvd4qsjqqtywh5hzwavpegqkvxp9k
+creation_rules:
+  # Shared between all hosts and rafael
+  - path_regex: ^users/user/rafael/nixos/shared/secrets.ya?ml$
+    key_groups:
+      - age:
+          - *rafael
+          - *ddtrjar275709
+          - *dnbrjar291010
+          - *nb-marcelo
+          - *nb-nanda
+          - *rjod275569
+          - *ws-rafael
+  # Shared between some hosts
+  - path_regex: ^hosts/labels/dtp.internal/secrets.ya?ml$
+    key_groups:
+      - age:
+          - *ddtrjar275709
+          - *dnbrjar291010
+          - *rafael
+  # Hosts
+  - path_regex: ^hosts/host/ddtrjar275709/(([^/]+/)*)secrets.ya?ml$
+    key_groups:
+      - age:
+          - *ddtrjar275709
+          - *rafael
+  - path_regex: ^hosts/host/dnbrjar291010/(([^/]+/)*)secrets.ya?ml$
+    key_groups:
+      - age:
+          - *dnbrjar291010
+          - *rafael
+  - path_regex: ^hosts/host/nb-marcelo/(([^/]+/)*)secrets.ya?ml$
+    key_groups:
+      - age:
+          - *nb-marcelo
+          - *rafael
+  - path_regex: ^hosts/host/nb-nanda/(([^/]+/)*)secrets.ya?ml$
+    key_groups:
+      - age:
+          - *nb-nanda
+          - *rafael
+  - path_regex: ^hosts/host/rjod275569/(([^/]+/)*)secrets.ya?ml$
+    key_groups:
+      - age:
+          - *rjod275569
+          - *rafael
+  - path_regex: ^hosts/host/ws-rafael/(([^/]+/)*)secrets.ya?ml$
+    key_groups:
+      - age:
+          - *ws-rafael
+          - *rafael
+  - path_regex: ^users/user/rafael/((([^/]+/)*)secrets.ya?ml|(([^/]+/)*)secrets/(([^/]+/)*)([^/]+))$
+    key_groups:
+      - age:
+          - *rafael

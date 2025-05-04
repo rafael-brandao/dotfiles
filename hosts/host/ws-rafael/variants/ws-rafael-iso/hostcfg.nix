@@ -1,0 +1,4 @@
+{
+  runtimePlatform = "iso";
+}
+
