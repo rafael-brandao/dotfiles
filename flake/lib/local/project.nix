@@ -143,6 +143,16 @@
           shared.dir
           "${hosts.shared}/configuration.nix"
           "${hostcfg.path}/configuration.nix"
+          {
+            config.lib = {
+              build = {
+                isNixos = true;
+                isHomeManager = false;
+                isNixosUser = false;
+                isStandaloneUser = false;
+              };
+            };
+          }
         ];
       in
         fromInputs ++ fromPaths;
@@ -193,6 +203,7 @@
   getUserHomeModules = usercfg: let
     coreModules = let
       fromInputs = with inputs; [
+        nixvim.homeModules.nixvim
         sops-nix.homeManagerModules.sops
       ];
       fromPaths = with paths; [
@@ -204,11 +215,17 @@
         "${users.shared.home}/core/configuration.nix"
         "${usercfg.path}/home/hosts/shared/configuration.nix"
         "${usercfg.path}/home/core/configuration.nix"
-        {
+        ({osConfig ? {}, ...}: {
           config.lib = {
+            build = rec {
+              isNixos = false;
+              isHomeManager = true;
+              isNixosUser = ! isStandaloneUser;
+              isStandaloneUser = osConfig == {};
+            };
             inherit usercfg;
           };
-        }
+        })
       ];
     in
       fromInputs ++ fromPaths ++ fromUser;
@@ -255,7 +272,6 @@
       extraSpecialArgs = {
         inherit (usercfg) hostcfg;
         inherit inputs lib paths;
-        # usercfg = removeAttrs usercfg ["hostcfg"];
         osConfig = {};
       };
       pkgs = pkgsFor usercfg.hostcfg.system;

@@ -36,6 +36,8 @@
           };
         zen-browser = mkIf (elem final.system ["aarch64-linux" "x86_64-linux"]) inputs.zen-browser.packages.${final.system}.default;
         zen-browser-twilight = mkIf (elem final.system ["aarch64-linux" "x86_64-linux"]) inputs.zen-browser.packages.${final.system}.twilight;
+
+        local = inputs.self.packages.${final.system};
       };
 
     # Overlays from inputs

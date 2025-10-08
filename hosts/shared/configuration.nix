@@ -20,6 +20,10 @@ in {
           environment = {
             enableAllTerminfo = mkDefault true;
 
+            # From https://github.com/nix-community/home-manager/blob/master/modules/misc/xdg-portal.nix
+            # If you use the NixOS module and have `useUserPackages = true`
+            pathsToLink = mkIf config.home-manager.useUserPackages ["/share/xdg-desktop-portal" "/share/applications"];
+
             systemPackages = with pkgs;
               mkMerge [
                 [
@@ -49,7 +53,7 @@ in {
               inherit (lib.local) paths;
               hostcfg = removeAttrs hostcfg ["users"];
             };
-            useGlobalPkgs = mkDefault true;
+            useGlobalPkgs = mkDefault config.stylix.enable;
             useUserPackages = mkDefault true;
           };
 
@@ -68,7 +72,7 @@ in {
               # Per-interface useDHCP will be mandatory in the future, so this generated config
               # replicates the default behaviour.
               # useDHCP = mkDefault false;
-              useDHCP = mkDefault (hostcfg.info.hasTag "vm");
+              useDHCP = mkDefault (hostcfg.info.hasTag "virtual-machine");
             }
             (mkIf (!config.networking.wireless.enable) {
               networkmanager = {
@@ -105,6 +109,10 @@ in {
           nixpkgs = {
             hostPlatform = mkDefault hostcfg.system;
             overlays = lib.attrValues inputs.self.overlays;
+            # config = {
+            #   allowBroken = mkDefault false;
+            #   allowUnfree = mkDefault true;
+            # };
           };
 
           programs = {
@@ -154,19 +162,10 @@ in {
         (mkIf (hostcfg.info.runtimePlatformIsOneOf ["iso" "virtual-machine"]) {
           services = {
             openssh = {
-              enable = mkDefault true;
+              enable = mkOverride 500 true;
               settings = {
                 PermitRootLogin = mkOverride 500 "yes";
               };
-            };
-          };
-          users = {
-            users.root = {
-              openssh.authorizedKeys.keys = [
-                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG3GJXN37jo2h3fRmpOBwk7oiLhloY9qCmyCwG5ml4FC"
-                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAczeNl3H+oLiaZT0jSGS+p4O8dKS14ahBY9qifB9Fqf"
-                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOXX5fjPp6lZYLGAHj6+UmMhE+5bmvAWoOJRqN9Fe9O7"
-              ];
             };
           };
         })
@@ -249,7 +248,11 @@ in {
             ((import nixosSharedUserConfiguration) usercfg args)
             (mkIf (pathExists nixosHostUserConfiguration) ((import nixosHostUserConfiguration) usercfg args))
           ];
-          homeUsercfg = mkMerge (lib.local.project.getUserHomeModules usercfg);
+          userHomeModules = lib.local.project.getUserHomeModules usercfg;
+          optionalUserHomeModules = [
+            (mkIf (!config.home-manager.useGlobalPkgs) inputs.stylix.homeModules.stylix)
+          ];
+          homeUsercfg = mkMerge (userHomeModules ++ optionalUserHomeModules);
         in
           mkMerge [
             {

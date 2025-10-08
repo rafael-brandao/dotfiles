@@ -20,12 +20,5 @@ with lib; {
   # INFO: These settings are exclusively to allow root login over ssh on a live iso
   services = {
     kmscon.autologinUser = mkOverride 500 "nixos";
-    openssh = {
-      enable = mkOverride 500 true;
-      settings = {
-        # PasswordAuthentication = mkOverride 500 true;
-        PermitRootLogin = mkOverride 500 "yes";
-      };
-    };
   };
 }
