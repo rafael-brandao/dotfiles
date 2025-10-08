@@ -1,5 +1,14 @@
-{lib, ...}:
-with lib; {
+{
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  inherit
+    (builtins)
+    fromJSON
+    ;
+in {
   config.lib.utils = rec {
     identityFunction = x: x;
 
@@ -33,5 +42,18 @@ with lib; {
       };
     in
       flipPipe [mapFn mkStringFn];
+
+    fromYAML = let
+      yaml2json = yamlFilePath:
+        pkgs.runCommand "yaml-to-json" {} ''
+          # shellcheck disable=SC2086,SC2154,SC2188
+          ${pkgs.yq-go}/bin/yq --output-format=json '.' ${yamlFilePath} > $out
+        '';
+    in
+      flipPipe [
+        yaml2json
+        readFile
+        fromJSON
+      ];
   };
 }

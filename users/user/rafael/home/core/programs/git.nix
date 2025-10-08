@@ -32,7 +32,9 @@ with lib;
         };
         difftastic = {
           enable = mkDefault true;
-          background = mkDefault "dark";
+          options = {
+            background = mkDefault "dark";
+          };
         };
         extraConfig.gpg.format = mkDefault "ssh";
         providers.rewriteProtocol = mkDefault "ssh";

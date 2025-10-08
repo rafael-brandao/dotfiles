@@ -27,8 +27,8 @@
           ssh-to-age
           tokei
         ])
-        ++ (with config; [
-          packages.neovim-developer
+        ++ (with config.packages; [
+          neovim-developer
         ]);
     };
   };

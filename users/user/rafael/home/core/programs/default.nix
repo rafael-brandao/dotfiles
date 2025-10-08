@@ -30,7 +30,7 @@ with lib; {
       foot.enable = true;
       git.enable = true;
       gopass.enable = true;
-      neovim.enable = true;
+      # neovim.enable = true;
       ripgrep.enable = true;
       starship.enable = true;
       yazi.enable = true;
@@ -43,9 +43,18 @@ with lib; {
     )
   ];
 
-  home.packages = with pkgs; [
-    age
-    jq
-    ripgrep-all
-  ];
+  home = {
+    packages = with pkgs;
+      [
+        age
+        jq
+        ripgrep-all
+      ]
+      ++ [
+        local.neovim-developer # Nixvim as standalone package
+      ];
+    sessionPath = [
+      "${pkgs.local.neovim-developer}/bin"
+    ];
+  };
 }

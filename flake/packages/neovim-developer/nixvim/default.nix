@@ -1,4 +1,4 @@
-_: {
+{pkgs, ...}: {
   imports = [
     ./extra-files
     ./extra-lua.nix
@@ -7,7 +7,7 @@ _: {
     ./plugins.nix
   ];
 
-  # package = pkgs.neovim-nightly;
+  package = pkgs.neovim-nightly;
 
   extraLuaPackages = luaPkgs:
     with luaPkgs; [
