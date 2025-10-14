@@ -58,7 +58,9 @@
     project = getParentPathUntil (dir: isFile (dir + /flake.nix));
     flake = {
       dir = project + /flake;
+      lib = flake.dir + /lib;
       overlays = flake.dir + /overlays;
+      packages = flake.dir + /packages;
     };
     hosts = {
       dir = project + /hosts;

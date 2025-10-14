@@ -109,10 +109,6 @@ in {
           nixpkgs = {
             hostPlatform = mkDefault hostcfg.system;
             overlays = lib.attrValues inputs.self.overlays;
-            # config = {
-            #   allowBroken = mkDefault false;
-            #   allowUnfree = mkDefault true;
-            # };
           };
 
           programs = {

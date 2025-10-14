@@ -9,7 +9,7 @@ with lib; {
     # Terminal
     ./git.nix
     ./gopass.nix
-    # ./neovim.nix
+    ./nixvim.nix
     ./starship.nix
     # ./syncrclone.nix
 
@@ -44,17 +44,10 @@ with lib; {
   ];
 
   home = {
-    packages = with pkgs;
-      [
-        age
-        jq
-        ripgrep-all
-      ]
-      ++ [
-        local.neovim-developer # Nixvim as standalone package
-      ];
-    sessionPath = [
-      "${pkgs.local.neovim-developer}/bin"
+    packages = with pkgs; [
+      age
+      jq
+      ripgrep-all
     ];
   };
 }
