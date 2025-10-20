@@ -1,12 +1,17 @@
 {
   lib,
   modulesPath,
+  pkgs,
   ...
 }:
 with lib; {
   imports = [
     (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
     # (modulesPath + "/installer/cd-dvd/installation-cd-minimal-new-kernel.nix")
+  ];
+
+  environment.systemPackages = with pkgs; [
+    disko
   ];
 
   networking = {

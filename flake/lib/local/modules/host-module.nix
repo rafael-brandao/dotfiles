@@ -162,14 +162,21 @@ with lib; let
               inherit paths;
               hostcfg = {
                 inherit
+                  parent
+                  ;
+                inherit
                   (config)
                   host
                   hostname
                   info
+                  isVariant
                   sops
                   system
                   tags
                   ;
+                inheritParentConfiguration = config.isVariant && config.inheritParentConfiguration;
+                inheritTags = config.isVariant && config.inheritTags;
+                inheritTagsConfigurations = config.isVariant && config.inheritTagsConfigurations;
               };
             };
           });
@@ -255,6 +262,11 @@ with lib; let
         mkEnableOption "Whether to inherit tags from parent hostcfg"
         // {
           default = true;
+        };
+      inheritTagsConfigurations =
+        mkEnableOption "Whether to inherit tags configurations from parent hostcfg"
+        // {
+          default = config.inheritTags;
         };
       inheritUsers =
         mkEnableOption "Whether to inherit users from parent hostcfg"

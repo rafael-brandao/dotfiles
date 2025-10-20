@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}:
+with lib; {
   imports = [
     ./extra-files
     ./extra-lua.nix
@@ -7,7 +12,11 @@
     ./plugins.nix
   ];
 
-  package = pkgs.neovim-nightly;
+  package = mkDefault pkgs.neovim-nightly;
+
+  extraPackages = with pkgs; [
+    zig
+  ];
 
   extraLuaPackages = luaPkgs:
     with luaPkgs; [

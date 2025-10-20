@@ -10,7 +10,7 @@ with lib;
     programs = {
       git = {
         package = mkDefault pkgs.gitAndTools.gitFull;
-        extraConfig = {
+        settings = {
           color = {
             ui = true;
           };

@@ -56,7 +56,7 @@ in {
     providerName: let
       provider = cfg.provider.${providerName};
     in {
-      extraConfig.url = {
+      settings.url = {
         "https://${provider.domain}/".insteadOf = mkIf (provider.rewriteProtocol == "https") "git@${provider.domain}:";
         "git@${provider.domain}:".insteadOf = mkIf (provider.rewriteProtocol == "ssh") "https://${provider.domain}/";
       };
