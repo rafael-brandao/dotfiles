@@ -170,7 +170,7 @@ in {
       home.packages = [
         pkgs.git-credential-gopass # manage git credentials using gopass
       ];
-      programs.git.extraConfig = {
+      programs.git.settings = {
         credential.helper = mkOverride 500 "gopass";
       };
     })

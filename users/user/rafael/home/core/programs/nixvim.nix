@@ -1,10 +1,9 @@
 {
-  lib,
   paths,
   pkgs,
   ...
 }:
-with lib; {
+{
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
