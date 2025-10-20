@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib; {
@@ -8,8 +9,9 @@ with lib; {
     treesitter = {
       enable = true;
       settings = {
-        auto_install = false;
+        auto_install = true;
         ensure_installed = "all";
+        grammarPackages = pkgs.vimPlugins.nvim-treesitter.passthru.allGrammars;
         sync_install = false;
         parser_install_dir.__raw =
           # lua

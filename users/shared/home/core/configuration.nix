@@ -46,6 +46,16 @@ in {
         age.keyFile = mkDefault "${config.xdg.configHome}/sops/age/keys.txt";
         defaultSopsFile = mkDefault (usercfg.path + /home/hosts/host/${hostcfg.sops.host}/secrets.yaml);
         validateSopsFiles = mkDefault true;
+        secrets = {
+          "ssh/id_ed25519" = {
+            path = "${config.home.homeDirectory}/.ssh/id_ed25519";
+            mode = "0600";
+          };
+          "ssh/id_ed25519.pub" = {
+            path = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
+            mode = "0644";
+          };
+        };
       };
     }
 

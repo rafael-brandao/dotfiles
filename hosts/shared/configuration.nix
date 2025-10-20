@@ -210,8 +210,11 @@ in {
           };
 
           services = {
+            getty = {
+              autologinOnce = mkIf (config.services.getty.autologinUser != null) (mkDefault true);
+            };
             kmscon = {
-              enable = mkDefault true;
+              # enable = mkDefault true;
               hwRender = mkDefault true;
               # hwRender = mkDefault config.hardware.graphics.enable; # This produces infinite recursion error
               fonts = mkDefault [

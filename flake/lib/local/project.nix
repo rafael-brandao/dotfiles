@@ -35,6 +35,7 @@
     mapAttrsToList
     mkMerge
     nixosSystem
+    optionals
     pipe
     removeAttrs
     ;
@@ -192,6 +193,16 @@
               "${hostcfg.parent.path}/configuration.nix"
             ];
           }
+          {
+            comment = "Rule for hosts that are variants and inherit parent tags homeConfigurations";
+            predicate = hostcfg.isVariant && hostcfg.inheritTagsConfigurations;
+            modules = crossValidConfigurationPaths {
+              dirNames = hostcfg.tags;
+              baseDirs = [
+                "${hostcfg.parent.path}/tags"
+              ];
+            };
+          }
         ];
       in
         pipe filterRules [
@@ -199,12 +210,14 @@
           (map (getAttr "modules"))
           concatLists
         ];
+      finalModules = coreModules ++ modulesFromTags ++ modulesFromRules;
     in
-      coreModules ++ modulesFromTags ++ modulesFromRules;
+      finalModules;
 
   getUserHomeModules = usercfg: let
     coreModules = let
       fromInputs = with inputs; [
+        mangowc.hmModules.mango
         nixvim.homeModules.nixvim
         sops-nix.homeManagerModules.sops
       ];
@@ -233,20 +246,37 @@
       fromInputs ++ fromPaths ++ fromUser;
 
     optionalModules = let
+      hosts = with usercfg;
+        [
+          hostcfg.host
+        ]
+        ++ (optionals hostcfg.inheritParentConfiguration [
+          hostcfg.parent.host
+        ]);
+
+      hostTagPaths = with usercfg;
+        [
+          "${usercfg.path}/home/hosts/host/${hostcfg.host}/tags"
+        ]
+        ++ (optionals hostcfg.inheritTags [
+          "${usercfg.path}/home/hosts/host/${hostcfg.parent.host}/tags"
+        ]);
+
       fromHost = crossValidConfigurationPaths {
-        dirNames = [usercfg.hostcfg.host];
+        dirNames = hosts;
         baseDirs = [
-          "${usercfg.path}/home/hosts"
+          "${usercfg.path}/home/hosts/host"
         ];
       };
       fromTags = crossValidConfigurationPaths {
         dirNames = usercfg.hostcfg.tags;
-        baseDirs = with paths; [
-          shared.tags
-          "${users.shared.home}/tags"
-          "${usercfg.path}/home/tags"
-          "${usercfg.path}/home/hosts/${usercfg.hostcfg.host}/tags"
-        ];
+        baseDirs = with paths;
+          [
+            shared.tags
+            "${users.shared.home}/tags"
+            "${usercfg.path}/home/tags"
+          ]
+          ++ hostTagPaths;
       };
     in
       fromHost ++ fromTags;
