@@ -32,5 +32,8 @@ with lib;
           name = mkDefault "Noto Color Emoji";
         };
       };
+      # targets = {
+      #   nixvim.plugin = mkDefault "base16-nvim";
+      # };
     };
   }

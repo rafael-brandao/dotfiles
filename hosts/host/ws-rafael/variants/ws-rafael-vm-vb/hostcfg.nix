@@ -1,6 +1,7 @@
 {
   runtimePlatform = "virtual-machine";
   tags = [
-    "qemu-guest"
+    "dtp.internal"
+    "virtualbox-guest"
   ];
 }

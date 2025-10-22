@@ -24,7 +24,12 @@ with lib; {
     ];
 
   colorschemes = {
-    rose-pine.enable = true;
+    catppuccin = {
+      enable = mkDefault true;
+      settings = {
+        flavour = "mocha";
+      };
+    };
   };
 
   filetype = {
