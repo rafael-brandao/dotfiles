@@ -2,8 +2,7 @@
   paths,
   pkgs,
   ...
-}:
-{
+}: {
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
@@ -25,6 +24,7 @@
     #   };
     # };
   };
+  stylix.targets.nixvim.enable = false;
   #
   # home = {
   #   packages = with pkgs; [

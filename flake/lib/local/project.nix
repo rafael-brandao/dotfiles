@@ -72,9 +72,11 @@
     users = {
       dir = project + /users;
       shared = {
-        dir = users.dir + /shared;
-        home = users.shared.dir + /home;
-        nixos = users.shared.dir + /nixos;
+        home = {
+          core = users.dir + /shared/home/core;
+          tags = users.dir + /shared/home/tags;
+        };
+        nixos = users.dir + /shared/nixos;
       };
       user = users.dir + /user;
     };
@@ -227,7 +229,7 @@
         shared.dir
       ];
       fromUser = with paths; [
-        "${users.shared.home}/core/configuration.nix"
+        "${users.shared.home.core}/configuration.nix"
         "${usercfg.path}/home/hosts/shared/configuration.nix"
         "${usercfg.path}/home/core/configuration.nix"
         ({osConfig ? {}, ...}: {
@@ -273,7 +275,7 @@
         baseDirs = with paths;
           [
             shared.tags
-            "${users.shared.home}/tags"
+            users.shared.home.tags
             "${usercfg.path}/home/tags"
           ]
           ++ hostTagPaths;
