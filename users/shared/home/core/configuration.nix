@@ -9,7 +9,6 @@ with lib; let
   inherit (config.lib) usercfg;
 in {
   imports = [
-    ./misc
     ./programs
   ];
 
@@ -37,7 +36,7 @@ in {
         direnv.nix-direnv.enable = mkDefault true;
         home-manager.enable = mkForce true; # Let Home Manager install and manage itself
         htop.enable = mkDefault true;
-        # neovim.enable = mkDefault true;
+        neovim.enable = mkDefault true;
         starship.enable = mkDefault true;
         zoxide.enable = mkDefault true;
       };
@@ -58,11 +57,19 @@ in {
         };
       };
     }
-
+    # (mkIf hostcfg.isNixos {
+    #   home.activation.fixUserNixProfileLink = hm.dag.entryAfter ["writeBoundary"] ''
+    #     mkdir --parents ${config.home.homeDirectory}/.local/state/nix/profiles
+    #     ln --symbolic --force /etc/profiles/per-user/${usercfg.username} ${config.home.homeDirectory}/.local/state/nix/profiles/profile
+    #     ln --symbolic --force ${config.home.homeDirectory}/.local/state/nix/profiles/profile ${config.home.homeDirectory}/.nix-profile
+    #   '';
+    # })
     (mkIf (hostcfg.info.hasAnyTagIn ["desktop" "workstation"]) {
       home.packages = with pkgs; [
         scribus # Desktop Publishing (DTP) and Layout program
       ];
+    })
+    (mkIf (hostcfg.info.hasAnyTagIn ["desktop" "workstation" "wsl"]) {
       xdg = {
         enable = mkDefault true;
         mime.enable = mkDefault true;
@@ -76,12 +83,14 @@ in {
         userDirs.enable = mkDefault true;
       };
     })
-
     (mkIf config.xdg.mimeApps.enable {
       home.packages = with pkgs; [
         xdg-launch
         xdg-utils
       ];
+    })
+    (mkIf config.xdg.portal.enable {
+      xdg.portal.xdgOpenUsePortal = mkDefault true;
     })
   ];
 }

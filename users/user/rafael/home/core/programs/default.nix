@@ -30,7 +30,7 @@ with lib; {
       foot.enable = true;
       git.enable = true;
       gopass.enable = true;
-      # neovim.enable = true;
+      neovim.enable = false;
       ripgrep.enable = true;
       starship.enable = true;
       yazi.enable = true;

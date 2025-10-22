@@ -13,9 +13,9 @@ with lib; {
       gnused
       lolcat
     ];
-    sessionVariables = {
-      SHELL = "fish";
-    };
+    # sessionVariables = {
+    #   SHELL = "fish";
+    # };
   };
 
   programs.fish = {
