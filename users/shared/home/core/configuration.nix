@@ -66,7 +66,8 @@ in {
     # })
     (mkIf (hostcfg.info.hasAnyTagIn ["desktop" "workstation"]) {
       home.packages = with pkgs; [
-        scribus # Desktop Publishing (DTP) and Layout program
+        # TODO: Review unstable package: scribus
+        stable.scribus # Desktop Publishing (DTP) and Layout program
       ];
     })
     (mkIf (hostcfg.info.hasAnyTagIn ["desktop" "workstation" "wsl"]) {
