@@ -139,6 +139,7 @@
       coreModules = let
         fromInputs = with inputs; [
           home-manager.nixosModules.home-manager
+          mangowc.nixosModules.mango
           sops-nix.nixosModules.sops
           stylix.nixosModules.stylix
         ];
