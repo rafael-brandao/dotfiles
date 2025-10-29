@@ -40,6 +40,8 @@ with lib; {
       vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
     };
 
+    programs.mango.enable = true;
+
     users = {
       users.root = {
         openssh.authorizedKeys.keys = [
