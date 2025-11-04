@@ -156,17 +156,6 @@ in {
           };
         }
 
-        (mkIf (hostcfg.info.runtimePlatformIsOneOf ["iso" "virtual-machine"]) {
-          services = {
-            openssh = {
-              enable = mkOverride 500 true;
-              settings = {
-                PermitRootLogin = mkOverride 500 "yes";
-              };
-            };
-          };
-        })
-
         (mkIf config.sops.enable {
           sops = {
             age = {
@@ -242,7 +231,7 @@ in {
           nixosHostUserConfiguration = "${usercfg.path}/nixos/hosts/${hostcfg.host}/user-configuration.nix";
           nixosUsercfg = mkMerge [
             {
-              home = mkDefault usercfg.homeDirectory;
+              home = mkForce usercfg.homeDirectory;
               isNormalUser = mkDefault true;
             }
             ((import nixosSharedUserConfiguration) usercfg args)
