@@ -155,6 +155,7 @@ in {
             mutableUsers = mkDefault false;
           };
         }
+
         (mkIf (hostcfg.info.runtimePlatformIsOneOf ["iso" "virtual-machine"]) {
           services = {
             openssh = {

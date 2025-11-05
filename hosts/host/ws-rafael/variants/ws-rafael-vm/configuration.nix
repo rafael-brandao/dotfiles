@@ -1,31 +1,17 @@
-_: {
+_: let
+  inherit (builtins) readFile toFile;
+in {
   boot.initrd = {
     clevis = {
       enable = true;
       useTang = true;
       devices = {
-        "cryptroot".secretFile = "/etc/clevis/cryptroot.jwe";
-        "cryptswap".secretFile = "/etc/clevis/cryptswap.jwe";
+        "cryptroot".secretFile = toFile "cryptroot.jwe" (readFile ./secrets/cryptroot.jwe);
+        "cryptswap".secretFile = toFile "cryptswap.jwe" (readFile ./secrets/cryptswap.jwe);
       };
     };
     network = {
       enable = true;
-      # udhcpc.enable = true;
-    };
-  };
-  environment.etc = {
-    "clevis/cryptroot.jwe" = {
-      source = ./secrets/cryptroot.jwe;
-      # optional but recommended: restrict permissions and ownership
-      mode = "0400";
-      user = "root";
-      group = "root";
-    };
-    "clevis/cryptswap.jwe" = {
-      source = ./secrets/cryptswap.jwe;
-      mode = "0400";
-      user = "root";
-      group = "root";
     };
   };
   security.sudo = {
