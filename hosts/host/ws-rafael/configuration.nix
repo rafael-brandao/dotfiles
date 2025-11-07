@@ -26,18 +26,18 @@ with lib; {
         enable32Bit = true;
         extraPackages = with pkgs; [
           intel-media-driver # LIBVA_DRIVER_NAME=iHD
-          vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-          vaapiVdpau
+          intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+          libva-vdpau-driver
           libvdpau-va-gl
         ];
         extraPackages32 = with pkgs.pkgsi686Linux; [
-          vaapiIntel
+          intel-vaapi-driver
         ];
       };
     };
 
     nixpkgs.config.packageOverrides = pkgs: {
-      vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
+      intel-vaapi-driver = pkgs.intel-vaapi-driver.override {enableHybridCodec = true;};
     };
 
     programs.mango.enable = true;

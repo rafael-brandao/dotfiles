@@ -27,16 +27,20 @@ in {
             systemPackages = with pkgs;
               mkMerge [
                 [
-                  curl
+                  clevis
                   coreutils
+                  curl
+                  evtest
                   gnugrep
                   neovim
+                  pciutils
                   ripgrep-all
                   rsync
                   wget
                 ]
                 (mkIf config.hardware.graphics.enable [
-                  glxinfo
+                  mangohud
+                  mesa-demos
                 ])
               ];
           };

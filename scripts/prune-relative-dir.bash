@@ -22,7 +22,7 @@ run_checks() {
     fail "A mount already exists at target directory '$target_dir'"
 
   [ -d "$base_dir" ] || #                                                                               Error if base directory path is not a valid directrory
-    fail "Base directory '$source_dir' is not a valid directory path or does not exist"
+    fail "Base directory '$base_dir' is not a valid directory path or does not exist"
 
   [ ! -e "$target_dir" ] || [ -d "$target_dir" ] || #                                                   Error if target directory path exists and is not a directrory
     fail "Path marked to be the target directory '$target_dir' exists but it is not a directory"
@@ -58,7 +58,7 @@ main() {
   trap 'fail $? \"Error when executing ${BASH_COMMAND} at line ${LINENO}!\"' ERR
 
   # Get inputs from command line arguments
-  if [[ "$#" < 2 ]] || [[ "$#" > 3 ]]; then
+  if [[ "$#" -lt 2 ]] || [[ "$#" -gt 3 ]]; then
     fail "Error: 'prune-relative-dir.bash' requires at least *two* and at most *three* args."
   fi
 
