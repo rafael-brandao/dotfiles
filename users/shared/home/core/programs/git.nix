@@ -9,7 +9,7 @@ with lib;
   mkIf config.programs.git.enable {
     programs = {
       git = {
-        package = mkDefault pkgs.gitAndTools.gitFull;
+        package = mkDefault pkgs.gitFull;
         settings = {
           color = {
             ui = true;
@@ -39,7 +39,7 @@ with lib;
       ]
       ++ (
         optionals (hostcfg.info.hasAnyTagIn ["desktop" "wsl"]) [
-          smartgithg # GUI for Git, Mercurial, Subversion
+          smartgit # GUI for Git, Mercurial, Subversion
         ]
       );
   }

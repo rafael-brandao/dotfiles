@@ -1,17 +1,13 @@
-_: let
-  inherit (builtins) readFile toFile;
-in {
+_: {
   boot.initrd = {
+    network.enable = true;
     clevis = {
       enable = true;
       useTang = true;
       devices = {
-        "cryptroot".secretFile = toFile "cryptroot.jwe" (readFile ./secrets/cryptroot.jwe);
-        "cryptswap".secretFile = toFile "cryptswap.jwe" (readFile ./secrets/cryptswap.jwe);
+        "cryptroot".secretFile = "/etc/clevis/cryptroot.jwe";
+        "cryptswap".secretFile = "/etc/clevis/cryptswap.jwe";
       };
-    };
-    network = {
-      enable = true;
     };
   };
   security.sudo = {

@@ -22,7 +22,7 @@
               content = {
                 type = "luks";
                 name = "cryptroot";
-                passwordFile = "/tmp/secret.key";
+                passwordFile = "/tmp/cryptroot-secret.key";
                 extraOpenArgs = ["--type=luks2"];
                 settings = {
                   allowDiscards = true;
@@ -59,7 +59,7 @@
               content = {
                 type = "luks";
                 name = "cryptswap";
-                passwordFile = "/tmp/secret.key";
+                passwordFile = "/tmp/cryptswap-secret.key";
                 extraOpenArgs = ["--type=luks2"];
                 settings = {
                   allowDiscards = true;

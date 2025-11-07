@@ -28,7 +28,7 @@ with lib;
           name = mkDefault "DejaVu Sans";
         };
         emoji = {
-          package = mkDefault noto-fonts-emoji;
+          package = mkDefault noto-fonts-color-emoji;
           name = mkDefault "Noto Color Emoji";
         };
       };
