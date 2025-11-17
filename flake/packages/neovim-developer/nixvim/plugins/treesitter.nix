@@ -4,15 +4,24 @@
   pkgs,
   ...
 }:
-with lib; {
+with lib; let
+  brokenGrammars = [
+    "blueprint"
+    "fusion"
+    "ipkg"
+    "jsonc"
+    "t32"
+  ];
+in {
   plugins = {
     treesitter = {
       enable = true;
       settings = {
-        auto_install = true;
-        ensure_installed = "all";
+        auto_install = false;
         grammarPackages = pkgs.vimPlugins.nvim-treesitter.passthru.allGrammars;
-        sync_install = false;
+        ensure_installed = "all";
+        ignore_install = brokenGrammars; # TODO: currently these grammars are failing to install
+        # sync_install = false;
         parser_install_dir.__raw =
           # lua
           "vim.fs.joinpath(_M.data, 'treesitter')";

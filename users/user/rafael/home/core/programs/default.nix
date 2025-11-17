@@ -7,8 +7,10 @@
 with lib; {
   imports = [
     # Terminal
+    ./delta.nix
     ./git.nix
     ./gopass.nix
+    ./jujutsu.nix
     ./nixvim.nix
     ./starship.nix
     # ./syncrclone.nix
@@ -18,7 +20,7 @@ with lib; {
     ./shell/fish.nix
 
     # Desktop
-    # ./ghostty.nix
+    ./ghostty.nix
   ];
 
   programs = mkMerge [
@@ -26,10 +28,12 @@ with lib; {
       # Terminal
       aria2.enable = true;
       bat.enable = true;
+      delta.enable = true;
       fish.enable = true;
       foot.enable = true;
       git.enable = true;
       gopass.enable = true;
+      jujutsu.enable = true;
       neovim.enable = false;
       ripgrep.enable = true;
       starship.enable = true;
