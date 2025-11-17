@@ -15,7 +15,8 @@ with lib; {
   package = mkDefault pkgs.neovim-nightly;
 
   extraPackages = with pkgs; [
-    zig
+    gcc
+    nodejs
   ];
 
   extraLuaPackages = luaPkgs:

@@ -42,6 +42,14 @@ with lib; {
 
     programs.mango.enable = true;
 
+    services = {
+      pipewire = {
+        enable = true;
+        alsa.enable = true;
+        pulse.enable = true;
+      };
+    };
+
     users = {
       users.root = {
         openssh.authorizedKeys.keys = [
