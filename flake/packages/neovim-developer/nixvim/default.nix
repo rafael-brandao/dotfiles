@@ -26,9 +26,9 @@ with lib; {
 
   colorschemes = {
     catppuccin = {
-      enable = mkDefault true;
+      enable = mkOverride 1050 true;
       settings = {
-        flavour = "mocha";
+        flavour = mkOverride 1050 "mocha";
       };
     };
   };

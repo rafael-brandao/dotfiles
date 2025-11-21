@@ -292,22 +292,27 @@
       stylix.homeModules.stylix
     ]);
 
+  sharedArgs = {
+    # nixvimcfg = {
+    #   isStandaloneBuild = false;
+    # };
+    osConfig = {};
+  };
+
   mkNixosSystem = hostcfg:
     nixosSystem {
       inherit (hostcfg) system;
       modules = getHostModules hostcfg;
-      specialArgs = {
+      specialArgs = sharedArgs // {
         inherit hostcfg inputs lib paths;
-        osConfig = {};
       };
     };
 
   mkHomeConfig = usercfg:
     homeManagerConfiguration {
-      extraSpecialArgs = {
-        inherit (usercfg) hostcfg;
+      extraSpecialArgs =  sharedArgs // {
         inherit inputs lib paths;
-        osConfig = {};
+        inherit (usercfg) hostcfg;
       };
       pkgs = pkgsFor usercfg.hostcfg.system;
       modules = getUserStandaloneHomeModules usercfg;

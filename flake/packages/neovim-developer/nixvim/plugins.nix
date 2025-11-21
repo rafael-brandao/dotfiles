@@ -7,11 +7,12 @@ with lib; let
       "gitsigns"
       "lazygit"
       "lsp"
-      "lualine"
       "mini"
+      "mini-animate"
       "otter"
       "render-markdown"
       "snacks"
+      "statusline"
       "telescope" # telescoped will be enabled only when snacks picker is not enabled
       "todo-comments"
       "transparent"

@@ -5,13 +5,15 @@
 }: let
   overlays = {
     additions = with lib;
-      final: prev: {
-        neovim-nightly = inputs.neovim-nightly.packages.${final.system}.neovim;
+      final: prev: let
+        inherit (final.stdenv.hostPlatform) system;
+      in {
+        neovim-nightly = inputs.neovim-nightly.packages.${system}.neovim;
 
-        nil-git = inputs.nil.packages.${final.system}.nil;
+        nil-git = inputs.nil.packages.${system}.nil;
 
         stable = mkPkgs {
-          inherit (final) system;
+          inherit system;
           nixpkgs = inputs.nixpkgs-stable;
         };
 
@@ -34,10 +36,10 @@
               doCheck = false;
             };
           };
-        zen-browser = mkIf (elem final.system ["aarch64-linux" "x86_64-linux"]) inputs.zen-browser.packages.${final.system}.default;
-        zen-browser-twilight = mkIf (elem final.system ["aarch64-linux" "x86_64-linux"]) inputs.zen-browser.packages.${final.system}.twilight;
+        zen-browser = mkIf (elem system ["aarch64-linux" "x86_64-linux"]) inputs.zen-browser.packages.${system}.default;
+        zen-browser-twilight = mkIf (elem system ["aarch64-linux" "x86_64-linux"]) inputs.zen-browser.packages.${system}.twilight;
 
-        local = inputs.self.packages.${final.system};
+        local = inputs.self.packages.${system};
       };
 
     # Overlays from inputs

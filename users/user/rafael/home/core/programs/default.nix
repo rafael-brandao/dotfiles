@@ -7,6 +7,7 @@
 with lib; {
   imports = [
     # Terminal
+    ./atuin.nix
     ./delta.nix
     ./git.nix
     ./gopass.nix
@@ -27,6 +28,7 @@ with lib; {
     {
       # Terminal
       aria2.enable = true;
+      atuin.enable = true;
       bat.enable = true;
       delta.enable = true;
       fish.enable = true;

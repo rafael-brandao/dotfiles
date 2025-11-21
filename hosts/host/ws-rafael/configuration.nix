@@ -17,6 +17,11 @@ with lib; {
       supportedFilesystems = ["btrfs" "ntfs"];
     };
 
+    environment.systemPackages = with pkgs; [
+      alsa-utils
+      libva-utils
+    ];
+
     hardware = {
       bluetooth.enable = true;
       cpu.intel.updateMicrocode = config.hardware.enableRedistributableFirmware;
@@ -47,6 +52,7 @@ with lib; {
         enable = true;
         alsa.enable = true;
         pulse.enable = true;
+        # wireplumber.enable = true;
       };
     };
 
