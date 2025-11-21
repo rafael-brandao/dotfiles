@@ -6,6 +6,22 @@
 with lib;
   mkIf config.sops.enable {
     sops.secrets = {
+      "atuin/key" = {
+        mode = "0400";
+        sopsFile = ./secrets.yaml;
+      };
+      "atuin/email" = {
+        mode = "0400";
+        sopsFile = ./secrets.yaml;
+      };
+      "atuin/username" = {
+        mode = "0400";
+        sopsFile = ./secrets.yaml;
+      };
+      "atuin/password" = {
+        mode = "0400";
+        sopsFile = ./secrets.yaml;
+      };
       "git/personal.gitconfig" = {
         key = "gitconfig";
         sopsFile = ./secrets.yaml;

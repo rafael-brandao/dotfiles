@@ -34,6 +34,7 @@ in {
         dircolors.enable = mkDefault true;
         direnv.enable = mkDefault true;
         direnv.nix-direnv.enable = mkDefault true;
+        fzf.enable = mkDefault true;
         home-manager.enable = mkForce true; # Let Home Manager install and manage itself
         htop.enable = mkDefault true;
         neovim.enable = mkDefault true;

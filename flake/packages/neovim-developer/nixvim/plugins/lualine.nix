@@ -15,10 +15,6 @@
     };
   };
 
-  opts = {
-    showmode = false; # Disable neovim showmode when using lualine
-  };
-
   keymaps = [
     {
       mode = "n";

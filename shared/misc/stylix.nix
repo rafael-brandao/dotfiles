@@ -11,9 +11,7 @@ with lib;
       enable = mkDefault true;
       autoEnable = mkDefault true;
       image = mkDefault ./stylix/wallpaper.jpg;
-      scheme = with config.lib.stylix.schemes; mkDefault base16-schemes.rose-pine;
-      # base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
-      # polarity = mkDefault "dark";
+      scheme = with config.lib.stylix.schemes; mkDefault base16-schemes.catppuccin-mocha;
       fonts = with pkgs; {
         monospace = {
           package = mkDefault nerd-fonts.intone-mono;
@@ -32,8 +30,5 @@ with lib;
           name = mkDefault "Noto Color Emoji";
         };
       };
-      # targets = {
-      #   nixvim.plugin = mkDefault "base16-nvim";
-      # };
     };
   }

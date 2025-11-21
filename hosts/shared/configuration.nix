@@ -39,8 +39,10 @@ in {
                   wget
                 ]
                 (mkIf config.hardware.graphics.enable [
+                  kanshi
                   mangohud
                   mesa-demos
+                  wlr-randr
                 ])
               ];
           };
