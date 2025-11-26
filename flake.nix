@@ -43,6 +43,17 @@
     };
 
     # 3rd Party Inputs
+    dgop = {
+      url = "github:AvengeMedia/dgop";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell";
+      inputs = {
+        dgop.follows = "dgop";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;

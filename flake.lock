@@ -77,16 +77,36 @@
         ]
       },
       "locked": {
-        "lastModified": 1764827643,
-        "narHash": "sha256-JKUigAKdEJzWD6FL31p0i2rnu/MRpcRMSuSlES+810I=",
+        "lastModified": 1765667038,
+        "narHash": "sha256-NevQ7Fyi7qVBexQ4wfkbVxWjmAaUxNtthnq7jCfmz3s=",
         "owner": "saghen",
         "repo": "blink.cmp",
-        "rev": "57d900e6982f63c7cde689aa06d8af76c8da083e",
+        "rev": "f51535d3eed7a21f739cb3c19ea87bb1a8400c65",
         "type": "github"
       },
       "original": {
         "owner": "saghen",
         "repo": "blink.cmp",
+        "type": "github"
+      }
+    },
+    "dgop": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1762835999,
+        "narHash": "sha256-UykYGrGFOFTmDpKTLNxj1wvd1gbDG4TkqLNSbV0TYwk=",
+        "owner": "AvengeMedia",
+        "repo": "dgop",
+        "rev": "799301991cd5dcea9b64245f9d500dcc76615653",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AvengeMedia",
+        "repo": "dgop",
         "type": "github"
       }
     },
@@ -107,6 +127,29 @@
       "original": {
         "owner": "nix-community",
         "repo": "disko",
+        "type": "github"
+      }
+    },
+    "dms": {
+      "inputs": {
+        "dgop": [
+          "dgop"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1764128138,
+        "narHash": "sha256-eqchezcvPGx+s38q2rxHxjbkR4UCAEK8B2xgmrDS8fA=",
+        "owner": "AvengeMedia",
+        "repo": "DankMaterialShell",
+        "rev": "d8153f7611bfd5f4ae744bd08e11c4bc35d55d16",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AvengeMedia",
+        "repo": "DankMaterialShell",
         "type": "github"
       }
     },
@@ -795,7 +838,9 @@
     "root": {
       "inputs": {
         "blink-cmp": "blink-cmp",
+        "dgop": "dgop",
         "disko": "disko",
+        "dms": "dms",
         "fish-plugin-spark": "fish-plugin-spark",
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts_2",

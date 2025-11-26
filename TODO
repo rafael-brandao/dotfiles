@@ -1,0 +1,1 @@
+. FIX ~/.nix-profile: `~ ❯ ln -sf /etc/profiles/per-user/$USER ~/.local/state/nix/profiles/profile`

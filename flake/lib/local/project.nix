@@ -220,6 +220,7 @@
   getUserHomeModules = usercfg: let
     coreModules = let
       fromInputs = with inputs; [
+        dms.homeModules.dankMaterialShell.default
         mangowc.hmModules.mango
         nixvim.homeModules.nixvim
         sops-nix.homeManagerModules.sops
