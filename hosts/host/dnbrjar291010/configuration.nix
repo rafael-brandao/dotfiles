@@ -34,14 +34,11 @@ with lib; {
   services = {
     dbus = {
       enable = true;
-      # packages = with pkgs; [
-      #   tiramisu
-      # ];
     };
     tang = {
       enable = true;
       listenStream = [
-        "7654"
+        "0.0.0.0:7654"
       ];
       # Restrict to VM subnet (QEMU user-mode: 10.0.2.0/24)
       ipAddressAllow = [
