@@ -16,11 +16,6 @@ with lib; {
     # docker.enable = mkDefault true; # Enable integration with Docker Desktop (needs to be installed)
     startMenuLaunchers = mkDefault true;
     wslConf.automount.root = mkDefault "/mnt";
-
-    #   The option definition `wsl.nativeSystemd' in `/nix/store/3nsblbgn2g2dp3pga0bm8g29pg1ns3kj-labels/wsl.nix'
-    # no longer has any effect; please remove it.
-    #   Native systemd is now always enabled as support for syschdemd has been removed
-    # nativeSystemd = mkDefault true;
   };
 
   lib.wsl = {
