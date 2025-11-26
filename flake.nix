@@ -34,6 +34,13 @@
     };
 
     # 3rd Party Inputs
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        quickshell.follows = "quickshell";
+      };
+    };
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;
@@ -64,6 +71,10 @@
       # inputs.nixpkgs.follows = "nixpkgs";
       follows = "my-neovim/nvf";
     };
+    quickshell = {
+      url = "github:quickshell-mirror/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     sops-nix = {
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -87,7 +98,7 @@
     };
 
     # Personal Repositories Inputs
-    my-neovim =  {
+    my-neovim = {
       url = "git+https://codeberg.org/rafael-brandao/neovim.git";
       # url = "git+ssh://git@github.com/rafael-brandao/neovim.git";
       # url = "github:rafael-brandao/neovim";

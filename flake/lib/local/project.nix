@@ -217,6 +217,7 @@
   getUserHomeModules = usercfg: let
     coreModules = let
       fromInputs = with inputs; [
+        dms.homeModules.dank-material-shell
         mangowc.hmModules.mango
         nvf.homeManagerModules.default
         sops-nix.homeManagerModules.sops
