@@ -15,11 +15,13 @@ in {
   extraGroups = [
     # "audio"
     "disk"
+    "input"
     "video"
     "wheel"
     (mkIf config.virtualisation.libvirtd.enable "docker")
     (mkIf config.virtualisation.libvirtd.enable "libvirtd")
     (mkIf config.networking.networkmanager.enable "networkmanager")
+    (mkIf config.hardware.uinput.enable "uinput")
   ];
   openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG3GJXN37jo2h3fRmpOBwk7oiLhloY9qCmyCwG5ml4FC"

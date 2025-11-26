@@ -9,6 +9,11 @@ with lib; {
       "i915.enable_guc=3" # GuC/HuC firmware
     ];
   };
+
+  hardware = {
+    uinput.enable = true;
+  };
+
   services = {
     avahi = {
       publish.enable = true;
