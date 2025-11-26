@@ -8,7 +8,7 @@ with lib; let
       "lazygit"
       "lsp"
       "mini"
-      "mini-animate"
+      # "mini-animate"
       "otter"
       "render-markdown"
       "snacks"
