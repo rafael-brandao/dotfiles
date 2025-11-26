@@ -233,6 +233,7 @@ in {
       ]
       ++ (forEach (attrValues hostcfg.userSettings) (
         usercfg: let
+          inherit (usercfg) username;
           nixosSharedUserConfiguration = "${usercfg.path}/nixos/shared/user-configuration.nix";
           nixosHostUserConfiguration = "${usercfg.path}/nixos/hosts/${hostcfg.host}/user-configuration.nix";
           nixosUsercfg = mkMerge [
@@ -253,29 +254,47 @@ in {
             {
               home-manager.users.${usercfg.username} = homeUsercfg;
               users.users.${usercfg.username} = nixosUsercfg;
+
+              # TODO: check the necessity to apply this onlly when home.userGlobalPackages = true
+              system.activationScripts."fixHomeNixProfileFor_${usercfg.username}" = let
+                inherit (config.users.users."${username}") home;
+              in ''
+                nix_profiles_dir="${home}/.local/state/nix/profiles"
+                mkdir --parents "''$nix_profiles_dir" || true
+
+                # Set permissions up to ${home}
+                current_dir="''$nix_profiles_dir"
+                while [ "''$current_dir" != "${home}" ] && [ "''$current_dir" != "/" ]; do
+                chown "$(id --user ${username})":"$(id --group ${username})" "''$current_dir"
+                  current_dir=$(dirname "''$current_dir")
+                done
+
+                rm --force "''${nix_profiles_dir}/profile"
+                ln --symbolic /etc/profiles/per-user/${username} "''${nix_profiles_dir}/profile"
+              '';
             }
+
             (mkIf config.sops.enable {
               sops.secrets = let
                 sopsFile = usercfg.path + /nixos/shared/secrets.yaml;
               in {
-                "users/${usercfg.username}/ageKey" = {
+                "users/${username}/ageKey" = {
                   key = mkDefault "ageKey";
                   neededForUsers = mkForce true;
                   sopsFile = mkDefault sopsFile;
                 };
-                "users/${usercfg.username}/hashedPassword" = {
+                "users/${username}/hashedPassword" = {
                   key = mkDefault "hashedPassword";
                   neededForUsers = mkForce true;
                   sopsFile = mkDefault sopsFile;
                 };
               };
 
-              users.users.${usercfg.username} = {
-                hashedPasswordFile = mkDefault config.sops.secrets."users/${usercfg.username}/hashedPassword".path;
+              users.users.${username} = {
+                hashedPasswordFile = mkDefault config.sops.secrets."users/${username}/hashedPassword".path;
               };
 
-              system.activationScripts."sopsSetAgeKeysFor_${usercfg.username}" = let
-                inherit (usercfg) username;
+              system.activationScripts."sopsSetAgeKeysFor_${username}" = let
                 ageFolder = config.users.users."${username}".home + "/.config/sops/age";
                 ageFile = "${ageFolder}/keys.txt";
               in
@@ -284,7 +303,7 @@ in {
                   # Create directory tree and set permissions up to /home/${username}
                   current_dir="${ageFolder}"
                   while [ "''$current_dir" != "/home/${username}" ] && [ "''$current_dir" != "/" ]; do
-                    mkdir -p "''$current_dir" || true
+                    mkdir --parents "''$current_dir" || true
                     chown ${username}:users "''$current_dir"
                     current_dir=$(dirname "''$current_dir")
                   done

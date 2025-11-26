@@ -37,7 +37,7 @@ in {
         fzf.enable = mkDefault true;
         home-manager.enable = mkForce true; # Let Home Manager install and manage itself
         htop.enable = mkDefault true;
-        neovim.enable = mkDefault true;
+        # neovim.enable = mkDefault true;
         starship.enable = mkDefault true;
         zoxide.enable = mkDefault true;
       };
