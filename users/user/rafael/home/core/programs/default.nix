@@ -22,6 +22,7 @@ with lib; {
     ./shell/fish.nix
 
     # Desktop
+    ./dank-material-shell.nix
     ./ghostty.nix
     # ./wezterm.nix
   ];
@@ -52,12 +53,18 @@ with lib; {
   ];
 
   home = {
-    packages = with pkgs; [
-      age
-      devenv
-      jq
-      ripgrep-all
-    ];
+    packages = with pkgs;
+      mkMerge [
+        [
+          age
+          devenv
+          jq
+          ripgrep-all
+        ]
+        (mkIf (hostcfg.info.hasAnyTagIn ["desktop" "workstation" "wsl"]) [
+          ffmpeg
+        ])
+      ];
   };
 
   rb.defaults.apps = {

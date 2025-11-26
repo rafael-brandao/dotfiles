@@ -1,3 +1,8 @@
-{
-  wayland.windowManager.mango.enable = true;
+_: {
+  programs = {
+    dank-material-shell.enable = true;
+  };
+  wayland = {
+    windowManager.mango.enable = true;
+  };
 }

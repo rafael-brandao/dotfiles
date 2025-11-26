@@ -13,12 +13,15 @@ with lib; let
         nixpkgs = inputs.nixpkgs-stable;
       };
 
+      dms = inputs.dms.packages.${system}.default;
+      quickshell = inputs.quickshell.packages.${system}.default;
       zen-browser = mkIf (elem system ["aarch64-linux" "x86_64-linux"]) inputs.zen-browser.packages.${system}.default;
       zen-browser-twilight = mkIf (elem system ["aarch64-linux" "x86_64-linux"]) inputs.zen-browser.packages.${system}.twilight;
     };
 
     # Overlays from inputs
     nixgl = inputs.nixgl.overlay;
+    # quickshell = inputs.quickshell.overlays.default;
   };
 
   mkPkgs = {
