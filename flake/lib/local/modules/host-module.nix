@@ -85,6 +85,29 @@ with lib; let
     };
   };
 
+  tagRulesModule = {config, ...}: {
+    options = {
+      enable =
+        mkEnableOption "Whether this tag rule should be enabled"
+        // {
+          default = true;
+        };
+      description = mkOption {
+        type = types.str;
+        description = "A clear decription of this rule";
+      };
+      predicate =
+        mkEnableOption "The the predicate that will test the host configuration"
+        // {
+          default = config.enable;
+        };
+      tags = mkOption {
+        type = with types; addCheck (listOf str) (tags: length tags > 0);
+        description = "The list of tags that will be concatenated to the final one, case the predicate evaluates to true";
+      };
+    };
+  };
+
   sharedHostcfgModule = {
     config,
     parent,
@@ -145,7 +168,44 @@ with lib; let
 
       tags = mkOption {
         type = with types; listOf str;
-        description = "A list of tags for the host";
+        description = "A configurable list of tags for the host";
+      };
+
+      tagsFinal = mkOption {
+        type = with types; listOf str;
+        description = "The final list of tags for the host, including user configured and calculated by rules";
+        readOnly = true;
+        internal = true;
+        default = let
+          calculatedTags = pipe config.tagRules [
+            attrValues
+            (filter (r: r.enable && r.predicate))
+            (map (r: r.tags))
+            flatten
+          ];
+          configuredTags = config.tags;
+        in
+          configuredTags ++ calculatedTags;
+      };
+
+      tagRules = mkOption {
+        type = with types; attrsOf (submodule tagRulesModule);
+        description = "The derivated tag rules";
+        default = {
+          addRuntimePlatform = {
+            description = "Whether to add the host runtime platform to the final list of tags";
+            tags = [config.runtimePlatform];
+          };
+          deriveGraphicalTag = {
+            description = ''
+              Whether to add a `graphical` tag to the final list of tags if the host:
+                . has tag `desktop` or `workstation`
+                . runtimePlatform is `wsl`
+            '';
+            predicate = with config; any (flip elem ["desktop" "workstation"]) tags || runtimePlatform == "wsl";
+            tags = ["graphical"];
+          };
+        };
       };
 
       users = mkOption {
@@ -172,7 +232,7 @@ with lib; let
                   isVariant
                   sops
                   system
-                  tags
+                  tagsFinal
                   ;
                 inheritParentConfiguration = config.isVariant && config.inheritParentConfiguration;
                 inheritTags = config.isVariant && config.inheritTags;
@@ -208,8 +268,8 @@ with lib; let
         readOnly = true;
         description = "Several keys that provide information about this host";
         default = {
-          hasAnyTagIn = searchTags: any (flip elem searchTags) config.tags;
-          hasAllTagsIn = searchTags: all (flip elem searchTags) config.tags;
+          hasAnyTagIn = searchTags: any (flip elem searchTags) config.tagsFinal;
+          hasAllTagsIn = searchTags: all (flip elem searchTags) config.tagsFinal;
           hasTag = flip elem config.tags;
           isBareMetal = config.runtimePlatform == "bare-metal";
           isIso = config.runtimePlatform == "iso";
@@ -222,10 +282,6 @@ with lib; let
     };
 
     config = {
-      tags = mkMerge [
-        (mkIf config.addRuntimePlatformToTags [config.runtimePlatform])
-        (mkIf (!config.addRuntimePlatformToTags) [])
-      ];
       userSettings = mkMerge (
         forEach config.users (user: {
           "${user}" = {};
@@ -278,7 +334,12 @@ with lib; let
       isNixos = mkDefault parent.isNixos;
       runtimePlatform = mkDefault parent.runtimePlatform;
       system = mkDefault parent.system;
-      tags = mkIf config.inheritTags (filter (tag: tag != parent.runtimePlatform) parent.tags);
+      # tags = mkIf config.inheritTags (filter (tag: tag != parent.runtimePlatform) parent.tags);
+      tagRules.inheritParentTags = {
+        description = "Wheter to inherit parent configured tags";
+        predicate = mkForce config.inheritTags;
+        inherit (parent) tags;
+      };
       users = mkIf config.inheritUsers parent.users;
       userSettings = mkIf config.inheritUsers (
         pipe config.users [
