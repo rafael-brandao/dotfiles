@@ -21,6 +21,7 @@ with lib; {
     ./shell/fish.nix
 
     # Desktop
+    ./dank-material-shell.nix
     ./ghostty.nix
     # ./wezterm.nix
   ];
