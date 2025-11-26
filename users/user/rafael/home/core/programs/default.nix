@@ -32,11 +32,9 @@ with lib; {
       bat.enable = true;
       delta.enable = true;
       fish.enable = true;
-      foot.enable = true;
       git.enable = true;
       gopass.enable = true;
       jujutsu.enable = true;
-      neovim.enable = false;
       ripgrep.enable = true;
       starship.enable = true;
       yazi.enable = true;
