@@ -23,9 +23,9 @@ with lib; {
   };
 
   environment.sessionVariables = {
-    # MESA_D3D12_DEFAULT_ADAPTER_NAME = "NVIDIA";
     DISPLAY = mkDefault ":0";
     # LIBGL_ALWAYS_INDIRECT = "1";
+    # MESA_D3D12_DEFAULT_ADAPTER_NAME = "NVIDIA";
     # PULSE_SERVER = "tcp:${nameserver}";
   };
 
@@ -37,6 +37,9 @@ with lib; {
   };
 
   programs = {
+    dconf = {
+      enable = mkDefault true;
+    };
     gnupg = {
       agent = {
         enable = mkDefault true;
@@ -45,6 +48,12 @@ with lib; {
         enableSSHSupport = mkDefault true;
         pinentryPackage = mkDefault pkgs.pinentry-curses;
       };
+    };
+  };
+
+  services = {
+    dbus = {
+      enable = mkDefault true;
     };
   };
 }
