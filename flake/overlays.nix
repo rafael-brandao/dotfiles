@@ -20,6 +20,8 @@
         vimPlugins = with final.vimUtils;
           prev.vimPlugins
           // {
+            blink-cmp-nightly = inputs.blink-cmp.packages.${system}.blink-cmp;
+
             snacks-nvim-git = buildVimPlugin {
               name = "snacks.nvim";
               src = inputs.snacks-nvim;
@@ -36,6 +38,7 @@
               doCheck = false;
             };
           };
+
         zen-browser = mkIf (elem system ["aarch64-linux" "x86_64-linux"]) inputs.zen-browser.packages.${system}.default;
         zen-browser-twilight = mkIf (elem system ["aarch64-linux" "x86_64-linux"]) inputs.zen-browser.packages.${system}.twilight;
 
