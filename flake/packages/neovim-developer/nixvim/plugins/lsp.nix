@@ -23,7 +23,12 @@ with lib;
                 formatting.command = ["alejandra"];
               };
             };
+            powershell_es = {
+              enable = true;
+              package = pkgs.powershell-editor-services;
+            };
             statix.enable = true;
+            taplo.enable = true; # TOML
             yamlls.enable = true;
           };
           onAttach =
