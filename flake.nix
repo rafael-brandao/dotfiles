@@ -96,6 +96,10 @@
     };
 
     # Vim Plugins
+    blink-cmp = {
+      url = "github:saghen/blink.cmp";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     snacks-nvim = {
       url = "github:folke/snacks.nvim";
       flake = false;

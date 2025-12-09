@@ -2,6 +2,7 @@
   plugins = {
     blink-cmp = {
       enable = true;
+      package = pkgs.vimPlugins.blink-cmp-nightly;
       settings = {
         appearance = {
           nerd_font_variant = "normal";
@@ -19,6 +20,11 @@
           documentation = {
             auto_show = true;
           };
+        };
+        # TODO: Remove lua implementation after fix. Error:
+        #    `Luv thread: module 'blink.cmp.fuzzy.rust' not found`
+        fuzzy = {
+          implementation = "lua";
         };
         keymap = {
           preset = "default";
@@ -39,12 +45,11 @@
         };
       };
     };
-
-    lsp.capabilities =
-      # lua
-      ''
-        capabilities = vim.tbl_extend("keep", capabilities or {}, require("blink-cmp").get_lsp_capabilities())
-      '';
+    # lsp.capabilities =
+    #   # lua
+    #   ''
+    #     capabilities = vim.tbl_extend("keep", capabilities or {}, require("blink-cmp").get_lsp_capabilities())
+    #   '';
   };
 
   extraPlugins = with pkgs.vimPlugins; [
