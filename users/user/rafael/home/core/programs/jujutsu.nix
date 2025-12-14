@@ -10,8 +10,8 @@ in
     programs = {
       jujutsu = {
         settings = {
-          git = {
-            auto-local-bookmark = mkDefault true;
+          remotes = {
+            origin.auto-track-bookmarks = mkDefault "glob:*";
           };
           ui = {
             color = mkDefault "always";
