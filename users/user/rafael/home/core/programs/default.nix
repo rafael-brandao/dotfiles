@@ -52,6 +52,7 @@ with lib; {
   home = {
     packages = with pkgs; [
       age
+      devenv
       jq
       ripgrep-all
     ];
