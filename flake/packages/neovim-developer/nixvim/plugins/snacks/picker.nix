@@ -60,12 +60,12 @@ with lib;
           options = {desc = "Find Config File";};
           action.__raw = "function() Snacks.picker.files({ cwd = vim.fn.stdpath('config') }) end";
         }
-        {
-          mode = ["n"];
-          key = "<leader>ff";
-          options = {desc = "Find Files";};
-          action.__raw = "function() Snacks.picker.files() end";
-        }
+        # {
+        #   mode = ["n"];
+        #   key = "<leader>ff";
+        #   options = {desc = "Find Files";};
+        #   action.__raw = "function() Snacks.picker.files() end";
+        # }
         {
           mode = ["n"];
           key = "<leader>fg";

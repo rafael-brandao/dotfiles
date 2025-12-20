@@ -22,15 +22,15 @@ in
   with lib; {
     keymaps = mkMerge [
       [
-        {
-          mode = "i";
-          key = "jj";
-          action = "<Esc>";
-          options = mkDefaultOpts {
-            desc = "Escape shortcut";
-            noremap = false;
-          };
-        }
+        # {
+        #   mode = "i";
+        #   key = "jj";
+        #   action = "<Esc>";
+        #   options = mkDefaultOpts {
+        #     desc = "Escape shortcut";
+        #     noremap = false;
+        #   };
+        # }
         {
           mode = "n";
           key = "<leader>ee";
@@ -111,14 +111,6 @@ in
             desc = "Delete to void register without modifying the current register content";
           };
         }
-        # {
-        #   mode = "n";
-        #   key = "<leader>f";
-        #   action = "vim.lsp.buf.format";
-        #   options = mkDefaultOpts {
-        #     desc = "Format the current buffer using LSP";
-        #   };
-        # }
         {
           mode = "n";
           key = "<leader>qq";
