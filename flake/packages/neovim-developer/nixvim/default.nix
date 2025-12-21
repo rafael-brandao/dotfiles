@@ -12,7 +12,7 @@ with lib; {
     ./plugins.nix
   ];
 
-  package = mkDefault pkgs.neovim-nightly;
+  # package = mkDefault pkgs.neovim-nightly;
 
   extraPackages = with pkgs; [
     gcc
