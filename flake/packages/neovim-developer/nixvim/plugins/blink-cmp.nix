@@ -1,7 +1,12 @@
-{pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}:
+with lib; {
   plugins = {
     blink-cmp = {
-      enable = true;
+      enable = mkDefault true;
       package = pkgs.vimPlugins.blink-cmp-nightly;
       settings = {
         appearance = {
