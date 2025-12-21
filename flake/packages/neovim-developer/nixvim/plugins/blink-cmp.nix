@@ -8,47 +8,47 @@ with lib; {
     blink-cmp = {
       enable = mkDefault true;
       # package = mkDefault pkgs.vimPlugins.blink-cmp-nightly;
-      # settings = {
-      #   appearance = {
-      #     nerd_font_variant = "normal";
-      #     use_nvim_cmp_as_default = true;
-      #   };
-      #   completion = {
-      #     accept = {
-      #       auto_brackets = {
-      #         enabled = true;
-      #         semantic_token_resolution = {
-      #           enabled = false;
-      #         };
-      #       };
-      #     };
-      #     documentation = {
-      #       auto_show = true;
-      #     };
-      #   };
-      #   # TODO: Remove lua implementation after fix. Error:
-      #   #    `Luv thread: module 'blink.cmp.fuzzy.rust' not found`
-      #   fuzzy = {
-      #     implementation = "lua";
-      #   };
-      #   keymap = {
-      #     preset = "default";
-      #   };
-      #   signature = {
-      #     enabled = true;
-      #   };
-      #   sources = {
-      #     cmdline = [];
-      #     providers = {
-      #       buffer = {
-      #         score_offset = -7;
-      #       };
-      #       lsp = {
-      #         fallbacks = [];
-      #       };
-      #     };
-      #   };
-      # };
+      settings = {
+        appearance = {
+          nerd_font_variant = "normal";
+          use_nvim_cmp_as_default = true;
+        };
+        completion = {
+          accept = {
+            auto_brackets = {
+              enabled = true;
+              semantic_token_resolution = {
+                enabled = false;
+              };
+            };
+          };
+          documentation = {
+            auto_show = true;
+          };
+        };
+        # TODO: Remove lua implementation after fix. Error:
+        #    `Luv thread: module 'blink.cmp.fuzzy.rust' not found`
+        fuzzy = {
+          implementation = "lua";
+        };
+        keymap = {
+          preset = "default";
+        };
+        signature = {
+          enabled = true;
+        };
+        sources = {
+          cmdline = [];
+          providers = {
+            buffer = {
+              score_offset = -7;
+            };
+            lsp = {
+              fallbacks = [];
+            };
+          };
+        };
+      };
     };
     # lsp.capabilities =
     #   # lua
