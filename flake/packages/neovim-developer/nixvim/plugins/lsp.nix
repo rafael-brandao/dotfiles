@@ -4,7 +4,9 @@
   pkgs,
   ...
 }:
-with lib;
+with lib; let
+  nixdPkg = pkgs.nixd;
+in
   mkMerge [
     {
       plugins = {
@@ -16,11 +18,20 @@ with lib;
             fish_lsp.enable = true;
             lua_ls.enable = true;
             markdown_oxide.enable = true;
-            nil_ls = {
-              enable = true;
-              package = pkgs.nil-git;
+            # nil_ls = {
+            #   enable = true;
+            #   package = pkgs.nil-git;
+            #   settings = {
+            #     formatting.command = ["alejandra"];
+            #   };
+            # };
+            nixd = {
+              enable = mkDefault true;
+              package = nixdPkg;
+              cmd = [(getExe nixdPkg)];
+              filetypes = ["nix"];
               settings = {
-                formatting.command = ["alejandra"];
+                formatting.command = [(getExe pkgs.alejandra)];
               };
             };
             powershell_es = {
@@ -111,18 +122,18 @@ with lib;
             };
           };
         };
-        none-ls = {
-          inherit (config.plugins.lsp) enable;
-          sources = {
-            code_actions = {
-              statix.enable = true;
-            };
-            diagnostics = {
-              deadnix.enable = true;
-              statix.enable = true;
-            };
-          };
-        };
+        # none-ls = {
+        #   inherit (config.plugins.lsp) enable;
+        #   sources = {
+        #     code_actions = {
+        #       statix.enable = true;
+        #     };
+        #     diagnostics = {
+        #       deadnix.enable = true;
+        #       statix.enable = true;
+        #     };
+        #   };
+        # };
       };
     }
   ]
