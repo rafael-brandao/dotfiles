@@ -71,17 +71,11 @@ with lib; let
 
       # xclip
       clipboard = "xclip -selection clipboard";
+
+      g = mkIf config.programs.git.enable "git";
+
+      v = mkIf (config.programs.neovim.enable || config.programs.nixvim.enable) "nvim";
     }
-
-    # Git
-    (mkIf config.programs.git.enable {
-      g = "git";
-    })
-
-    # NeoVim
-    (mkIf config.programs.neovim.enable {
-      v = "nvim";
-    })
   ];
 in {
   config = {
@@ -105,7 +99,7 @@ in {
       ];
 
     programs = {
-      # shell
+      # Bash
       bash = mkIf config.programs.bash.enable {
         shellAliases = aliases;
       };
@@ -141,7 +135,7 @@ in {
             };
           }
 
-          (mkIf config.programs.neovim.enable {
+          (mkIf (config.programs.neovim.enable || config.programs.nixvim.enable) {
             fv = {
               body =
                 # fish
