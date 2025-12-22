@@ -22,6 +22,7 @@ with lib; {
 
     # Desktop
     ./ghostty.nix
+    # ./wezterm.nix
   ];
 
   programs = mkMerge [
@@ -45,6 +46,7 @@ with lib; {
       mkIf (hostcfg.info.hasAnyTagIn ["desktop" "workstation" "wsl"])
       {
         ghostty.enable = true;
+        wezterm.enable = true;
       }
     )
   ];
