@@ -107,7 +107,7 @@ in {
             settings = {
               auto-optimise-store = mkDefault true;
               flake-registry = mkDefault ""; # Disable global flake registry
-              trusted-users = ["root" "@wheel"];
+              trusted-users = ["@wheel"];
               warn-dirty = mkDefault false;
             };
           };
