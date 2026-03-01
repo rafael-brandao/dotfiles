@@ -49,7 +49,7 @@ in
           };
           atuin-sync = {
             Unit = {
-              Description = "atuin-sybc";
+              Description = "atuin-sync";
               After = ["sops-nix.service" "atuin-login.service"];
               PartOf = ["sops-nix.service" "atuin-login.service"];
             };
