@@ -26,7 +26,7 @@ in {
         # You can update Home Manager without changing this value. See
         # the Home Manager release notes for a list of state version
         # changes in each release.
-        stateVersion = mkDefault "25.05";
+        stateVersion = mkDefault "26.05";
       };
 
       programs = {
