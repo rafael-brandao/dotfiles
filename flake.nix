@@ -24,21 +24,12 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    neovim-nightly = {
-      url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixgl = {
       url = "github:nix-community/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nixvim = {
-      # url = "github:nix-community/nixvim?rev=24d2ac2373598c032f37d70c46803feefd169084";
-      url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -65,13 +56,13 @@
       url = "github:DreamMaoMao/mangowc";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nil = {
-      url = "github:oxalica/nil";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixos-facter-modules = {
       url = "github:numtide/nixos-facter-modules";
+    };
+    nvf = {
+      # url = "github:notashelf/nvf";
+      # inputs.nixpkgs.follows = "nixpkgs";
+      follows = "my-neovim/nvf";
     };
     sops-nix = {
       url = "github:mic92/sops-nix";
@@ -95,29 +86,13 @@
       flake = false;
     };
 
-    # Vim Plugins
-    blink-cmp = {
-      url = "github:saghen/blink.cmp";
+    # Personal Repositories Inputs
+    my-neovim =  {
+      url = "git+https://codeberg.org/rafael-brandao/neovim.git";
+      # url = "git+ssh://git@github.com/rafael-brandao/neovim.git";
+      # url = "github:rafael-brandao/neovim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    snacks-nvim = {
-      url = "github:folke/snacks.nvim";
-      flake = false;
-    };
-    todo-comments-nvim = {
-      url = "github:folke/todo-comments.nvim";
-      flake = false;
-    };
-    trouble-nvim = {
-      url = "github:folke/trouble.nvim";
-      flake = false;
-    };
-    tt-schemes = {
-      url = "github:tinted-theming/schemes";
-      flake = false;
-    };
-
-    # Personal Repositories Inputs
     nix-contrib = {
       url = "github:rafael-brandao/nix-contrib/master";
     };

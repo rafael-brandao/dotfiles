@@ -12,7 +12,7 @@ with lib; {
     ./git.nix
     ./gopass.nix
     ./jujutsu.nix
-    ./nixvim.nix
+    ./nvf.nix
     ./starship.nix
     # ./syncrclone.nix
 
@@ -37,7 +37,7 @@ with lib; {
       git.enable = true;
       gopass.enable = true;
       jujutsu.enable = true;
-      neovim.enable = false;
+      nvf.enable = true;
       ripgrep.enable = true;
       starship.enable = true;
       yazi.enable = true;
