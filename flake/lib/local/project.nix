@@ -221,7 +221,7 @@
     coreModules = let
       fromInputs = with inputs; [
         mangowc.hmModules.mango
-        nixvim.homeModules.nixvim
+        nvf.homeManagerModules.default
         sops-nix.homeManagerModules.sops
       ];
       fromPaths = with paths; [
@@ -293,9 +293,6 @@
     ]);
 
   sharedArgs = {
-    # nixvimcfg = {
-    #   isStandaloneBuild = false;
-    # };
     osConfig = {};
   };
 
