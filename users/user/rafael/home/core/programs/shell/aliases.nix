@@ -74,7 +74,7 @@ with lib; let
 
       g = mkIf config.programs.git.enable "git";
 
-      v = mkIf (config.programs.neovim.enable || config.programs.nixvim.enable) "nvim";
+      v = mkIf (config.programs.neovim.enable || config.programs.nvf.enable) "nvim";
     }
   ];
 in {
@@ -135,7 +135,7 @@ in {
             };
           }
 
-          (mkIf (config.programs.neovim.enable || config.programs.nixvim.enable) {
+          (mkIf (config.programs.neovim.enable || config.programs.nvf.enable) {
             fv = {
               body =
                 # fish
