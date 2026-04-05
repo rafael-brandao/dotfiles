@@ -7,11 +7,9 @@
     (builtins)
     attrNames
     attrValues
-    baseNameOf
     getAttr
     filter
     foldl'
-    toString
     ;
   inherit
     (flakeArgs)
@@ -37,7 +35,6 @@
     nixosSystem
     optionals
     pipe
-    removeAttrs
     ;
   inherit
     (lib.local)
@@ -164,7 +161,7 @@
         fromInputs ++ fromPaths;
 
       modulesFromTags = crossValidConfigurationPaths {
-        dirNames = hostcfg.tags;
+        dirNames = hostcfg.tagsFinal;
         baseDirs = with paths; [
           shared.tags
           hosts.tags
@@ -200,7 +197,7 @@
             comment = "Rule for hosts that are variants and inherit parent tags homeConfigurations";
             predicate = hostcfg.isVariant && hostcfg.inheritTagsConfigurations;
             modules = crossValidConfigurationPaths {
-              dirNames = hostcfg.tags;
+              dirNames = hostcfg.tagsFinal;
               baseDirs = [
                 "${hostcfg.parent.path}/tags"
               ];
@@ -272,7 +269,7 @@
         ];
       };
       fromTags = crossValidConfigurationPaths {
-        dirNames = usercfg.hostcfg.tags;
+        dirNames = usercfg.hostcfg.tagsFinal;
         baseDirs = with paths;
           [
             shared.tags
@@ -300,17 +297,21 @@
     nixosSystem {
       inherit (hostcfg) system;
       modules = getHostModules hostcfg;
-      specialArgs = sharedArgs // {
-        inherit hostcfg inputs lib paths;
-      };
+      specialArgs =
+        sharedArgs
+        // {
+          inherit hostcfg inputs lib paths;
+        };
     };
 
   mkHomeConfig = usercfg:
     homeManagerConfiguration {
-      extraSpecialArgs =  sharedArgs // {
-        inherit inputs lib paths;
-        inherit (usercfg) hostcfg;
-      };
+      extraSpecialArgs =
+        sharedArgs
+        // {
+          inherit inputs lib paths;
+          inherit (usercfg) hostcfg;
+        };
       pkgs = pkgsFor usercfg.hostcfg.system;
       modules = getUserStandaloneHomeModules usercfg;
     };
