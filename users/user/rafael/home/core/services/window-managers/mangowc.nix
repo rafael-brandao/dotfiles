@@ -11,13 +11,12 @@ in
       autostart_sh = ''
         echo 'Starting MangoWC'
       '';
-      settings = ''
-        # Reload config
-        bind=SUPER,r,reload_config
-
-        # Terminal
-        bind=SUPER,Return,spawn,ghostty
-      '';
+      settings = {
+        bind = [
+          "SUPER,r,reload_config"
+          "SUPER,Return,spawn,ghostty"
+        ];
+      };
     };
 
     home.file.".profile" = {
