@@ -19,7 +19,7 @@ with lib; {
   };
 
   services = {
-    kmscon.autologinUser = mkOverride 500 "nixos";
+    getty.autologinUser = mkOverride 500 "nixos";
   };
 
   users = {
