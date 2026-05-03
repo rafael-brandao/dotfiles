@@ -51,6 +51,7 @@ with lib; {
         pinentryPackage = mkDefault pkgs.pinentry-curses;
       };
     };
+    mango.enable = mkImageMediaOverride false;
   };
 
   services = {
