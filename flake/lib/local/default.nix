@@ -17,6 +17,8 @@
 
         inherit
           (self.local.attrsets)
+          expandAttrListToAttrs
+          flattenAttrPaths
           indexAttrListFromPath
           ;
         inherit
