@@ -3,6 +3,8 @@
     ./lib/module-options.nix
     ./lib/utils.nix
 
+    ./rb/screenshot.nix
+
     ./programs/git.nix
     ./programs/gopass.nix
     ./programs/yazi.nix
