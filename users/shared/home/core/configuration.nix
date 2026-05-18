@@ -30,7 +30,6 @@ in {
       };
 
       programs = {
-        btop.enable = mkDefault true;
         dircolors.enable = mkDefault true;
         direnv.enable = mkDefault true;
         direnv.nix-direnv.enable = mkDefault true;

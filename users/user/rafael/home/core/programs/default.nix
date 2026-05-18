@@ -1,4 +1,5 @@
 {
+  config,
   hostcfg,
   lib,
   pkgs,
@@ -57,5 +58,24 @@ with lib; {
       jq
       ripgrep-all
     ];
+  };
+
+  rb.defaults.apps = {
+    editor = {
+      name = "nvf";
+      command = "nvim";
+      desktopFileId = "nvim.desktop";
+      package = config.programs.nvf.finalPackage;
+      settings = {
+        home = {
+          autoEnableProgram = false;
+          installPackage = false;
+        };
+        xdgMime.priority = "high";
+      };
+    };
+    fileManager = {
+      settings.xdgMime.priority = "high";
+    };
   };
 }
