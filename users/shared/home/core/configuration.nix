@@ -9,6 +9,7 @@ with lib; let
   inherit (config.lib) usercfg;
 in {
   imports = [
+    ./misc
     ./programs
   ];
 
@@ -75,23 +76,10 @@ in {
         enable = mkDefault true;
         mime.enable = mkDefault true;
         mimeApps.enable = mkDefault true;
-
-        # TODO: configure xdg portal
-        # Setting xdg.portal.enable to true requires a portal implementation in xdg.portal.extraPortals
-        # such as xdg-desktop-portal-gtk or xdg-desktop-portal-kde.
-        # portal.enable = mkDefault true;
-
+        portal.enable = mkDefault true;
+        terminal-exec.enable = mkDefault true;
         userDirs.enable = mkDefault true;
       };
-    })
-    (mkIf config.xdg.mimeApps.enable {
-      home.packages = with pkgs; [
-        xdg-launch
-        xdg-utils
-      ];
-    })
-    (mkIf config.xdg.portal.enable {
-      xdg.portal.xdgOpenUsePortal = mkDefault true;
     })
   ];
 }
