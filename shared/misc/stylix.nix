@@ -30,5 +30,16 @@ with lib;
           name = mkDefault "Noto Color Emoji";
         };
       };
+      cursor = {
+        package = mkDefault pkgs.bibata-cursors;
+        name = mkDefault "Bibata-Modern-Ice";
+        size = mkDefault 24;
+      };
+      icons = {
+        enable = mkDefault true;
+        package = mkDefault pkgs.papirus-icon-theme;
+        dark = mkDefault "Papirus-Dark";
+        light = mkDefault "Papirus-Light";
+      };
     };
   }
