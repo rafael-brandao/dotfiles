@@ -17,9 +17,11 @@
 
         inherit
           (self.local.attrsets)
+          chainPredicateAttrs
           expandAttrListToAttrs
           flattenAttrPaths
           indexAttrListFromPath
+          negatePredicateAttrs
           ;
         inherit
           (self.local.filesystem)

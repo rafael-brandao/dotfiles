@@ -1,6 +1,7 @@
 {lib, ...}: let
   inherit
     (lib)
+    all
     attrNames
     concatMap
     flatten
@@ -93,4 +94,61 @@ in rec {
     indexFn = set: nameValuePair (toString (getAttrFromPath attrPath set)) set;
   in
     flipPipe [(map indexFn) listToAttrs];
+
+  /*
+  Chains multiple attrset predicate functions into a single predicate,
+  returning true only when all predicates return true for the given
+  name and value pair. Particularly useful in conjunction with filterAttrs
+  to apply multiple independent filters over an attrset in a single pass,
+  keeping each predicate focused and composable.
+
+  Type: chainPredicateAttrs :: [ (string -> a -> bool) ] -> string -> a -> bool
+
+  Example:
+  chainPredicateAttrs [
+    (name: value: value > 0)
+    (name: value: value < 10)
+  ] "a" 5
+  => true
+
+  chainPredicateAttrs [
+    (name: value: value > 0)
+    (name: value: value < 10)
+  ] "a" 15
+  => false
+
+  Used with filterAttrs to chain 3 predicates over an attrset:
+  filterAttrs (chainPredicateAttrs [
+    (name: value: value.age >= 18)
+    (name: value: value.score > 50)
+    (name: value: name != "banned-user")
+  ]) {
+    alice   = { age = 25; score = 80; };
+    bob     = { age = 15; score = 90; };
+    charlie = { age = 30; score = 40; };
+    dave    = { age = 22; score = 75; };
+    eve     = { age = 19; score = 60; };
+  }
+  => {
+    alice = { age = 25; score = 80; };
+    dave  = { age = 22; score = 75; };
+    eve   = { age = 19; score = 60; };
+  }
+  */
+  chainPredicateAttrs = predicates: name: value: all (f: f name value) predicates;
+
+  /*
+  Negates an attrset predicate function, returning a new predicate that
+  yields the opposite boolean result for any given name and value.
+
+  Type: negatePredicateAttrs :: (string -> a -> bool) -> string -> a -> bool
+
+  Example:
+  negatePredicateAttrs (name: value: value > 2) "a" 3
+  => false
+
+  negatePredicateAttrs (name: value: value > 2) "a" 1
+  => true
+  */
+  negatePredicateAttrs = predicate: name: value: !(predicate name value);
 }
