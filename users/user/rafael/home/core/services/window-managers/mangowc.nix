@@ -21,14 +21,12 @@ in
       };
     };
 
-    home.file.".profile" = {
-      text =
-        #bash
-        ''
-          # Start mango on the first virtual terminal without a display running
-          if [ -z "''${WAYLAND_DISPLAY}" ] && [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 1 ]; then
-            exec mango
-          fi
-        '';
-    };
+    home.sessionVariablesExtra =
+      #bash
+      ''
+        # Start mango on the first virtual terminal without a display running
+        if [ -z "''${WAYLAND_DISPLAY}" ] && [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 1 ]; then
+          exec mango
+        fi
+      '';
   }

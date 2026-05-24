@@ -17,9 +17,7 @@ in
         gnused
         lolcat
       ];
-      # sessionVariables = {
-      #   SHELL = "fish";
-      file.".profile".text =
+      sessionVariablesExtra =
         mkBefore
         # bash
         ''
@@ -28,7 +26,6 @@ in
             exec fish
           fi
         '';
-      # };
     };
 
     programs.fish = {
