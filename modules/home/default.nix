@@ -11,6 +11,7 @@
     ./programs/yazi.nix
 
     ./services/gocryptfs.nix
+    ./services/kanata.nix
     ./services/map-ssh-identities.nix
   ];
 }
