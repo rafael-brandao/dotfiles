@@ -1,10 +1,12 @@
 {
+  config,
   inputs,
   lib,
   pkgs,
   ...
 }:
 with lib; {
+  #  TODO: move this import to top level flake, dealing with the wsl tag requirement.
   imports = with inputs; [
     nixos-wsl.nixosModules.wsl
   ];
@@ -52,9 +54,15 @@ with lib; {
   };
 
   services = {
-    dbus = {
-      enable = mkDefault true;
-    };
+    dbus.enable = mkDefault true;
+  };
+
+  systemd.services = {
+    wpa_supplicant.enable = mkImageMediaOverride false;
+  };
+
+  users.users."${config.wsl.defaultUser}" = {
+    linger = mkDefault true;
   };
 }
 # (mkIf hostcfg.isWsl {
