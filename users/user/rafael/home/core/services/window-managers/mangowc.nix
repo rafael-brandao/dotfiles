@@ -160,10 +160,6 @@ in {
         };
 
         # Trackpad
-        accel = {
-          profile = 2;
-          speed = 0.0;
-        };
         disable = {
           trackpad = 0;
           while_typing = 1;
