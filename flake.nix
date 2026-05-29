@@ -13,7 +13,7 @@
   inputs = {
     # nixpkgs
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
 
     # Nix Community
     disko = {
@@ -36,10 +36,7 @@
     # 3rd Party Inputs
     dms = {
       url = "github:AvengeMedia/DankMaterialShell";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        quickshell.follows = "quickshell";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-compat = {
       url = "github:edolstra/flake-compat";
