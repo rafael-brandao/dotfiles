@@ -6,6 +6,14 @@
 with lib;
   mkIf config.sops.enable {
     sops.secrets = {
+      "location/latitude" = {
+        mode = "0400";
+        sopsFile = mkOverride 990 ./secrets.yaml;
+      };
+      "location/longitude" = {
+        mode = "0400";
+        sopsFile = mkOverride 990 ./secrets.yaml;
+      };
       "atuin/key" = {
         mode = "0400";
         sopsFile = ./secrets.yaml;
