@@ -4,6 +4,7 @@
     ./lib/utils.nix
 
     ./rb/misc/defaults.nix
+    ./rb/dank-material-shell.nix
     ./rb/screenshot.nix
 
     ./programs/git.nix
