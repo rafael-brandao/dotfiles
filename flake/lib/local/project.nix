@@ -139,6 +139,7 @@
           mangowc.nixosModules.mango
           sops-nix.nixosModules.sops
           stylix.nixosModules.stylix
+          nixos-wsl.nixosModules.wsl
         ];
         fromPaths = with paths; [
           modules.common
