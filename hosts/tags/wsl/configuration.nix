@@ -1,16 +1,10 @@
 {
   config,
-  inputs,
   lib,
   pkgs,
   ...
 }:
 with lib; {
-  #  TODO: move this import to top level flake, dealing with the wsl tag requirement.
-  imports = with inputs; [
-    nixos-wsl.nixosModules.wsl
-  ];
-
   # networking.useHostResolvConf = false;
   wsl = {
     enable = mkDefault true;
