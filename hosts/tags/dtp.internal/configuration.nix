@@ -1,7 +1,4 @@
-{
-  # config,
-  ...
-}: {
+{config, ...}: {
   imports = [
     # ./proxy.nix
     ./security/ca.nix
@@ -28,10 +25,11 @@
   #   SSL_CERT_FILE = config.environment.etc."ssl/certs/ca-bundle.crt".source;
   # };
 
-  # systemd.services.nix-daemon.environment = {
-  #   GIT_SSL_CAINFO = config.environment.etc."ssl/certs/ca-bundle.crt".source;
-  #   NIX_GIT_SSL_CAINFO = config.environment.etc."ssl/certs/ca-bundle.crt".source;
-  #   NIX_SSL_CERT_FILE = config.environment.etc."ssl/certs/ca-bundle.crt".source;
-  #   SSL_CERT_FILE = config.environment.etc."ssl/certs/ca-bundle.crt".source;
-  # };
+  systemd.services.nix-daemon.environment = {
+    #   GIT_SSL_CAINFO = config.environment.etc."ssl/certs/ca-bundle.crt".source;
+    #   NIX_GIT_SSL_CAINFO = config.environment.etc."ssl/certs/ca-bundle.crt".source;
+    #   NIX_SSL_CERT_FILE = config.environment.etc."ssl/certs/ca-bundle.crt".source;
+    REQUESTS_CA_BUNDLE = config.environment.etc."ssl/certs/ca-bundle.crt".source;
+    #   SSL_CERT_FILE = config.environment.etc."ssl/certs/ca-bundle.crt".source;
+  };
 }
