@@ -110,7 +110,7 @@ in {
         scroller = {
           default_proportion = 0.8;
           default_proportion_single = 1.0;
-          focus_center = 0;
+          focus_center = 1;
           prefer_center = 1;
           proportion_preset = "0.5,0.8,1.0";
           structs = 20;
@@ -131,7 +131,7 @@ in {
 
         # Misc
         axis_bind_apply_timeout = 100;
-        circle_layout = "tile,scroller";
+        circle_layout = "scroller,monocle,tile";
         cursor = {
           hide_timeout = 1;
         };
