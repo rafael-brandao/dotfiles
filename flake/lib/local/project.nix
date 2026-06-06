@@ -260,7 +260,7 @@
         [
           "${usercfg.path}/home/hosts/host/${hostcfg.host}/tags"
         ]
-        ++ (optionals hostcfg.inheritTags [
+        ++ (optionals hostcfg.inheritTagsConfigurations [
           "${usercfg.path}/home/hosts/host/${hostcfg.parent.host}/tags"
         ]);
 
