@@ -155,6 +155,13 @@ in
           widgetBackgroundColor = "sc";
           widgetColorMode = "colorful";
           widgetTransparency = 0;
+          workspaceColorMode = "default";
+          workspaceFocusedBorderColor = "primary";
+          workspaceFocusedBorderEnabled = true;
+          workspaceFocusedBorderThickness = 2;
+          workspaceOccupiedColorMode = "schh";
+          workspaceUnfocusedColorMode = "s";
+          workspaceUrgentColorMode = "default";
         };
       };
 
@@ -246,6 +253,9 @@ in
             Before = ["dms-pre.service"];
           };
 
+          # TODO:
+          # location and longitude settings
+          # change dms-weather-secret to dms-location-secret
           Service = {
             Type = "oneshot";
             RemainAfterExit = true;
