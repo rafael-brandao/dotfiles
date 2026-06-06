@@ -14,6 +14,7 @@
         attrsets = callLibs ./attrsets.nix;
         filesystem = callLibs ./filesystem.nix;
         project = callLibs ./project.nix;
+        tagRules = callLibs ./tag-rules.nix;
 
         inherit
           (self.local.attrsets)
