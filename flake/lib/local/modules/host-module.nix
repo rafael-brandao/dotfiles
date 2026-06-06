@@ -1,6 +1,8 @@
 {lib, ...}:
 with lib; let
-  inherit (local) paths;
+  inherit (local)
+    paths
+    tagRules;
 
   userSettingsModule = {
     config,
@@ -179,8 +181,8 @@ with lib; let
         default = let
           calculatedTags = pipe config.tagRules [
             attrValues
-            (filter (r: r.enable && r.predicate))
-            (map (r: r.tags))
+            (filter (rule: rule.enable && rule.predicate))
+            (map (rule: rule.tags))
             flatten
           ];
           configuredTags = config.tags;
@@ -191,21 +193,7 @@ with lib; let
       tagRules = mkOption {
         type = with types; attrsOf (submodule tagRulesModule);
         description = "The derivated tag rules";
-        default = {
-          addRuntimePlatform = {
-            description = "Whether to add the host runtime platform to the final list of tags";
-            tags = [config.runtimePlatform];
-          };
-          deriveGraphicalTag = {
-            description = ''
-              Whether to add a `graphical` tag to the final list of tags if the host:
-                . has tag `desktop` or `workstation`
-                . runtimePlatform is `wsl`
-            '';
-            predicate = with config; any (flip elem ["desktop" "workstation"]) tags || runtimePlatform == "wsl";
-            tags = ["graphical"];
-          };
-        };
+        default = tagRules config;
       };
 
       users = mkOption {
@@ -244,10 +232,6 @@ with lib; let
         description = "Override user settings in case of necessity";
       };
 
-      addRuntimePlatformToTags =
-        mkEnableOption "Whether to add the runtime platform to the tags option"
-        // {default = true;};
-
       isNixos =
         mkEnableOption "Whether this is a NixOS host configuration or not"
         // {default = true;};
@@ -258,6 +242,22 @@ with lib; let
           default = isVariant;
           readOnly = true;
         };
+
+      inheritParentConfiguration =
+        mkEnableOption "Whether to inherit the base configuration from parent host"
+        // {default = config.isVariant;};
+
+      inheritTags =
+        mkEnableOption "Whether to inherit tags from parent hostcfg"
+        // {default = config.isVariant;};
+
+      inheritTagsConfigurations =
+        mkEnableOption "Whether to inherit tags configurations from parent hostcfg"
+        // {default = config.inheritTags;};
+
+      inheritUsers =
+        mkEnableOption "Whether to inherit users from parent hostcfg"
+        // {default = config.isVariant;};
 
       info = mkOption {
         type = types.anything;
@@ -304,33 +304,12 @@ with lib; let
         default = {};
         description = "Variant parent host configuration";
       };
-
-      inheritParentConfiguration =
-        mkEnableOption "Whether to inherit the base configuration from parent host"
-        // {default = true;};
-
-      inheritTags =
-        mkEnableOption "Whether to inherit tags from parent hostcfg"
-        // {default = true;};
-
-      inheritTagsConfigurations =
-        mkEnableOption "Whether to inherit tags configurations from parent hostcfg"
-        // {default = config.inheritTags;};
-
-      inheritUsers =
-        mkEnableOption "Whether to inherit users from parent hostcfg"
-        // {default = true;};
     };
     config = {
       isNixos = mkDefault parent.isNixos;
       runtimePlatform = mkDefault parent.runtimePlatform;
       system = mkDefault parent.system;
-      # tags = mkIf config.inheritTags (filter (tag: tag != parent.runtimePlatform) parent.tags);
-      tagRules.inheritParentTags = {
-        description = "Wheter to inherit parent configured tags";
-        predicate = mkForce config.inheritTags;
-        inherit (parent) tags;
-      };
+      tags = mkIf config.inheritTags (filter (tag: tag != parent.runtimePlatform) parent.tags);
       users = mkIf config.inheritUsers parent.users;
       userSettings = mkIf config.inheritUsers (
         pipe config.users [
