@@ -63,6 +63,8 @@ with lib; {
           age
           devenv
           jq
+          libuchardet
+          p7zip
           ripgrep-all
         ]
         (mkIf (hostcfg.info.hasAnyTagIn ["desktop" "workstation" "wsl"]) [
