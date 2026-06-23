@@ -16,6 +16,7 @@ with lib; {
     ./nvf.nix
     ./starship.nix
     # ./syncrclone.nix
+    ./zellij.nix
 
     # Shell
     ./shell/aliases.nix
@@ -42,6 +43,7 @@ with lib; {
       ripgrep.enable = true;
       starship.enable = true;
       yazi.enable = true;
+      zellij.enable = true;
     }
     ( # Desktop || Workstation || WSL
       mkIf (hostcfg.info.hasAnyTagIn ["desktop" "workstation" "wsl"])
