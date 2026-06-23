@@ -14,7 +14,10 @@ with lib;
           color = {
             ui = true;
           };
-          core.autocrlf = mkDefault "input";
+          core = {
+            autocrlf = mkDefault "input";
+            eol = "lf";
+          };
           credential.helper = mkDefault "store";
           fetch.prune = mkDefault true;
           grep.lineNumber = mkDefault true;
