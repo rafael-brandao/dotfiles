@@ -16,6 +16,7 @@ with lib; {
     ./nvf.nix
     ./starship.nix
     # ./syncrclone.nix
+    ./tmux.nix
     ./zellij.nix
 
     # Shell
@@ -42,6 +43,7 @@ with lib; {
       nvf.enable = true;
       ripgrep.enable = true;
       starship.enable = true;
+      tmux.enable = true;
       yazi.enable = true;
       zellij.enable = true;
     }
