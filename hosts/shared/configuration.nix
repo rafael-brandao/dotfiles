@@ -114,7 +114,10 @@ in {
 
           programs = {
             fish.enable = mkDefault true;
-            fuse.userAllowOther = mkDefault true;
+            fuse = {
+              enable = mkDefault true;
+              userAllowOther = mkDefault true;
+            };
             git.enable = mkDefault true;
           };
 

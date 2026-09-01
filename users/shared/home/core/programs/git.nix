@@ -39,7 +39,7 @@ with lib;
       ]
       ++ (
         optionals (hostcfg.info.hasAnyTagIn ["desktop" "wsl"]) [
-          smartgit # GUI for Git, Mercurial, Subversion
+          # smartgit # GUI for Git, Mercurial, Subversion
         ]
       );
   }
