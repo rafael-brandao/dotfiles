@@ -22,7 +22,7 @@ creation_rules:
           - *rjod275569
           - *ws-rafael
   # Shared between some hosts
-  - path_regex: ^hosts/labels/dtp.internal/secrets.ya?ml$
+  - path_regex: ^hosts/tags/dtp.internal/secrets.ya?ml$
     key_groups:
       - age:
           - *ddtrjar275709
