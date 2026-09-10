@@ -9,6 +9,7 @@ keys:
     - &nb-nanda age1jv5mgkuheqe0unc75g8xpgyxxwgl8xlsx5amfuckv2hv84v92u6quutwer
     - &rjod275569 age1gvdd2mt3c3wzwqmpdvrl9zreyv6sqax9r2jzqnev2pvq6z6g3cmstah0uv
     - &ws-rafael age1qze03rajq552ettmlv2f6ea90fm00hvd4qsjqqtywh5hzwavpegqkvxp9k
+    - &vega-ws age1jvsxkxxu9uzskevcs6ls6f6phuwnu4gyzry5yu7fue2h5n97wajqhu5r49
 creation_rules:
   # Shared between all hosts and rafael
   - path_regex: ^users/user/rafael/nixos/shared/secrets.ya?ml$
@@ -21,6 +22,7 @@ creation_rules:
           - *nb-nanda
           - *rjod275569
           - *ws-rafael
+          - *vega-ws
   # Shared between some hosts
   - path_regex: ^hosts/tags/dtp.internal/secrets.ya?ml$
     key_groups:
@@ -58,6 +60,11 @@ creation_rules:
     key_groups:
       - age:
           - *ws-rafael
+          - *rafael
+  - path_regex: ^hosts/host/vega-ws/(([^/]+/)*)secrets.ya?ml$
+    key_groups:
+      - age:
+          - *vega-ws
           - *rafael
   - path_regex: ^users/user/rafael/((([^/]+/)*)secrets.ya?ml|(([^/]+/)*)secrets/(([^/]+/)*)([^/]+))$
     key_groups:
