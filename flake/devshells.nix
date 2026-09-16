@@ -19,7 +19,10 @@
       packages =
         (with pkgs; [
           age
+          curl
+          fd
           git
+          jq
           jujutsu
           nixos-anywhere
           nixVersions.latest
