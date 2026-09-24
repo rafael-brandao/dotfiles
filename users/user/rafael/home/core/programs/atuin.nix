@@ -26,6 +26,10 @@ in
           };
         };
       }
+      (mkIf config.programs.fzf.enable {
+        # keep the history manager on Ctrl-R for atuin, disable fzf's binding
+        programs.fzf.historyWidget.command = "";
+      })
       (mkIf config.sops.enable {
         systemd.user.services = {
           atuin-login = {

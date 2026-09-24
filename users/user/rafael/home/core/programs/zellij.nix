@@ -8,7 +8,11 @@ with lib;
     mkMerge [
       {
         programs.zellij = {
-          attachExistingSession = mkDefault true; # ZELLIJ_AUTO_ATTACH: reattach instead of spawning duplicate sessions
+          # Disabled to silence a build warning: <paste warning text or reason here>.
+          # This only exported ZELLIJ_AUTO_ATTACH (reattach to an existing session
+          # instead of spawning a duplicate), so new shells now start a fresh session.
+          # attachExistingSession = mkDefault true;
+
           exitShellOnExit = mkDefault false; # ZELLIJ_AUTO_EXIT: drop back to fish, don't kill the terminal
 
           settings = {

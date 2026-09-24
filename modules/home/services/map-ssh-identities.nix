@@ -140,7 +140,7 @@ in {
   };
 
   config = mkIf (length cfg.identities > 0) {
-    home.activation.map-ssh-identities = mkIf pkgs.stdenv.isLinux (
+    home.activation.map-ssh-identities = mkIf pkgs.stdenv.hostPlatform.isLinux (
       config.lib.utils.restartSystemdService "map-ssh-identities"
     );
     systemd.user.services.map-ssh-identities = mkIf pkgs.stdenv.hostPlatform.isLinux {
