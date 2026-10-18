@@ -36,16 +36,6 @@ with lib;
           };
           providers.rewriteProtocol = mkDefault "ssh";
         };
-        difftastic = {
-          enable = mkDefault true;
-          options = {
-            background = mkDefault "dark";
-          };
-          git = {
-            enable = mkDefault true;
-            diffToolMode = mkDefault true;
-          };
-        };
       };
     }
     (mkIf config.sops.enable {

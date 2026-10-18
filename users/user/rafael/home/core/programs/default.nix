@@ -10,9 +10,11 @@ with lib; {
     # Terminal
     ./atuin.nix
     ./delta.nix
+    ./difftastic.nix
     ./git.nix
     ./gopass.nix
     ./jujutsu.nix
+    ./mergiraf.nix
     ./nvf.nix
     ./starship.nix
     # ./syncrclone.nix
@@ -36,10 +38,12 @@ with lib; {
       atuin.enable = true;
       bat.enable = true;
       delta.enable = true;
+      difftastic.enable = true;
       fish.enable = true;
       git.enable = true;
       gopass.enable = true;
       jujutsu.enable = true;
+      mergiraf.enable = true;
       nvf.enable = true;
       ripgrep.enable = true;
       starship.enable = true;

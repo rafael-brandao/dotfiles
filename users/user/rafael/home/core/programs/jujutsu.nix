@@ -5,6 +5,8 @@
 }:
 with lib; let
   cfg = config.programs.jujutsu;
+  batCfg = config.programs.bat;
+  batCommand = "${getExe batCfg.package} ${cli.toCommandLineShellGNU {} {plain = true;}}";
 in
   mkIf cfg.enable {
     programs = {
@@ -16,12 +18,9 @@ in
           ui = {
             color = mkDefault "always";
             default-command = mkDefault "log";
+            diff-formatter = mkOverride 90 ":git";
             editor = mkDefault "nvim";
-            pager = with config.programs; mkIf (!delta.enableJujutsuIntegration && bat.enable) (mkDefault "bat -p");
-          };
-          user = {
-            name = mkDefault "Rafael Brandão";
-            email = mkDefault "rafa.bra.dev@pm.me";
+            pager = mkIf batCfg.enable (mkOverride 1010 batCommand);
           };
         };
       };
