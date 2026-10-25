@@ -70,6 +70,21 @@ with lib;
         mode = "0444";
         sopsFile = ./secrets.yaml;
       };
+      "ssh/identities/02/identity" = {
+        key = "ssh/identities/_02/identity";
+        mode = "0400";
+        sopsFile = ./secrets.yaml;
+      };
+      "ssh/identities/02/id_ed25519" = {
+        key = "ssh/identities/_02/id_ed25519";
+        mode = "0400";
+        sopsFile = ./secrets.yaml;
+      };
+      "ssh/identities/02/id_ed25519.pub" = {
+        key = "ssh/identities/_02/id_ed25519.pub";
+        mode = "0444";
+        sopsFile = ./secrets.yaml;
+      };
       "syncrclone/01/config.py" = {
         key = "syncrclone/_01/config.py";
         mode = "0400";

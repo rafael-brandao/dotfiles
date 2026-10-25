@@ -11,6 +11,7 @@ with lib;
       programs.keychain = {
         keys = [
           secrets."ssh/identities/01/id_ed25519".path
+          secrets."ssh/identities/02/id_ed25519".path
         ];
       };
 
@@ -19,6 +20,11 @@ with lib;
           identityFile = secrets."ssh/identities/01/identity".path;
           privateKeyPath = secrets."ssh/identities/01/id_ed25519".path;
           publicKeyPath = secrets."ssh/identities/01/id_ed25519.pub".path;
+        }
+        {
+          identityFile = secrets."ssh/identities/02/identity".path;
+          privateKeyPath = secrets."ssh/identities/02/id_ed25519".path;
+          publicKeyPath = secrets."ssh/identities/02/id_ed25519.pub".path;
         }
       ];
     }
